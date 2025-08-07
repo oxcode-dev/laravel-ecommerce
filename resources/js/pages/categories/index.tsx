@@ -21,7 +21,7 @@ export default function Dashboard() {
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div className="flex justify-end px-4">
-                <Link href={`/`} className="bg-blue-600 text-white rounded-lg px-4 py-2">
+                <Link href="/categories/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
                     Create
                 </Link>
             </div>

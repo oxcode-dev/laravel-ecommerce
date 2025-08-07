@@ -37,9 +37,8 @@ class CategoryController extends Controller
 
     public function create(Request $request)
     {
-        return Inertia::render('categories/Form', [
+        return Inertia::render('categories/form', [
             'status' => $request->session()->get('status'),
-            'categories' => Category::all(),
         ]);
     }
 
@@ -68,10 +67,9 @@ class CategoryController extends Controller
 
     public function edit(Request $request, Category $category)
     {
-        return Inertia::render('categories/Form', [
+        return Inertia::render('categories/form', [
             'status' => $request->session()->get('status'),
             'category' => $category,
-            'categories' => Category::all(),
         ]);
     }
 
