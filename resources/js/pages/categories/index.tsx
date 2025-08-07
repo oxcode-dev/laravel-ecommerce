@@ -13,7 +13,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Dashboard() {
     // @ts-ignore
     const categories: CategoryType = usePage().props.categories
-
     const categoriesData: CategoryItem[] = categories?.data || {}
 
     return (
