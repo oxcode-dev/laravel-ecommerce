@@ -28,6 +28,7 @@ export interface SharedData {
     auth: Auth;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
+    categories: CategoryType;
     [key: string]: unknown;
 }
 
@@ -48,4 +49,8 @@ export interface CategoryItem {
     name: string;
     slug: string;
     description: string | null;
+}
+
+export interface CategoryType {
+    data: CategoryItem[];
 }

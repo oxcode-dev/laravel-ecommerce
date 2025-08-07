@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { CategoryItem, type BreadcrumbItem } from '@/types';
+import { CategoryItem, type BreadcrumbItem, CategoryType } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
@@ -11,9 +11,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Dashboard() {
-    const { categories } = usePage().props
+    // @ts-ignore
+    const categories: CategoryType = usePage().props.categories
 
-    const categoriesData : CategoryItem[] = categories?.data || {}
+    const categoriesData: CategoryItem[] = categories?.data || {}
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
