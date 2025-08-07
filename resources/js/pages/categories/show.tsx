@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { CategoryItem, type BreadcrumbItem } from '@/types';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -21,7 +21,7 @@ export default function Dashboard() {
             form.delete(route('categories.delete', { category: category.id }), {
                 onFinish: () => {
                     alert('Category deleted Successfully!!!')
-                    // router.visit('/categories')
+                    router.visit('/categories')
                 } 
             });
         }
@@ -33,7 +33,7 @@ export default function Dashboard() {
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
                 <div className="flex justify-end px-4 space-x-3">
-                    <Link href="`/categories/${category?.id}/edit`" className="bg-blue-600 text-white rounded-lg px-4 py-2">
+                    <Link href={`/categories/${category?.id}/edit`} className="bg-blue-600 text-white rounded-lg px-4 py-2">
                         Edit
                     </Link>
 
