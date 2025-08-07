@@ -13,29 +13,18 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id');
-            $table->foreignId('user_id')->nullable();
-            $table->json('categories')->nullable();
+            $table->foreignUuid('user_id')->nullable();
+            $table->foreignUuid('category_id')->nullable();
             $table->string('title');
+            $table->string('slug');
+            $table->text('summary')->nullable();
             $table->text('description')->nullable();
-            $table->string('url')->nullable();
-            $table->boolean('hidden')->default(true);
+            $table->decimal('price', 10, 2)->default(0.00);
+            $table->integer('stock')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->json('images')->nullable();
             $table->string('status')->default('pending');
-            $table->text('reason_for_rejection')->nullable();
-            $table->timestamp('approved_at')->nullable();
-            $table->timestamp('last_approved_at')->nullable();
             $table->timestamps();
-
-            category_id INT,
-            title VARCHAR(255),
-            description TEXT,
-            price DECIMAL(10, 2),
-            stock INT,
-            sku VARCHAR(50),
-            rating FLOAT DEFAULT 0,
-            is_active BOOLEAN DEFAULT TRUE,
-            created_at TIMESTAMP,
-            updated_at TIMESTAMP,
         });
     }
 

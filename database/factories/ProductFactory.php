@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -19,33 +20,21 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
+            "id" => fake()->uuid,
             "user_id" => User::factory(),
-            "categories" => [
-               [
-                   "id" => 1,
-                  "url" => "dry-food",
-                  "name" => "Dry Food",
-                  "parentCategory" => 0
-               ],
-               [
-                   "id" => 3,
-                  "url" => "fabrics",
-                  "name" => "Fabrics",
-                  "parentCategory" => 0
-               ]
-            ],
-            "type" => "physical",
-            "title" =>  $title = $this->faker->realText(random_int(10,20)) .  ' ' . Str::random(3),
+            "category_id" => Category::factory(),
+            "title" =>  $title = $this->faker->realText(random_int(10,20)),
+            "summary" => $this->faker->realText(150),
             "description" => $this->faker->realText(),
-            "url" => Str::slug($title),
-            "hidden" => true,
+            "slug" => Str::slug($title),
+            "is_active" => true,
+            "price" => fake()->randomFloat(2, 10, 1000),
             "images" => [
                 $this->faker->imageUrl(),
                 $this->faker->imageUrl()
             ],
+            'stock' => fake()->numberBetween(1, 100),
             "status" => "pending",
-            "approved_at" => null,
-            "last_approved_at" => null,
         ];
     }
 }
