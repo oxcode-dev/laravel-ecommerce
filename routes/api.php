@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,5 +11,6 @@ Route::get('/user', function (Request $request) {
 Route::get('/test', function() {
     return response()->json([
         'hello' => 'world',
+        'categories' => Category::all(),
     ]);
 });
