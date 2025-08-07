@@ -14,17 +14,12 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id');
             $table->foreignId('user_id')->nullable();
-            $table->string('store_product_id')->nullable();
             $table->json('categories')->nullable();
-            $table->string('type')->default('physical');
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('url')->nullable();
             $table->boolean('hidden')->default(true);
             $table->json('images')->nullable();
-            $table->json('variants')->nullable();
-            $table->json('options')->nullable();
-            $table->json('changes')->nullable();
             $table->string('status')->default('pending');
             $table->text('reason_for_rejection')->nullable();
             $table->timestamp('approved_at')->nullable();

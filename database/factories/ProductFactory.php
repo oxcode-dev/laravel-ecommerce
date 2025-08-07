@@ -20,7 +20,6 @@ class ProductFactory extends Factory
     {
         return [
             "user_id" => User::factory(),
-            "store_product_id" => null,
             "categories" => [
                [
                    "id" => 1,
@@ -44,56 +43,6 @@ class ProductFactory extends Factory
                 $this->faker->imageUrl(),
                 $this->faker->imageUrl()
             ],
-            "variants" => [
-               [
-                   "sku" => $this->faker->isbn10,
-                  "price" => $this->faker->randomElement(range(10.99, 199.99, 5.0)),
-                  "options" => [
-                       "L",
-                       "Fabric"
-                   ],
-                  "sales_price" => null,
-                  "available_stock" => random_int(1, 50)
-               ],
-               [
-                   "sku" => $this->faker->isbn10,
-                  "price" => $this->faker->randomElement(range(10.99, 199.99, 5.0)),
-                      "options" => [
-                       "L",
-                       "Silk"
-                   ],
-                  "sales_price" => null,
-                  "available_stock" => random_int(1, 50)
-               ]
-            ],
-            "options" => [
-               [
-                   "name" => "Colour",
-                  "values" => [
-                       "White",
-                       "Red"
-                   ],
-                  "advance" => false
-               ],
-               [
-                   "name" => "Size",
-                  "values" => [
-                       "L",
-                       "M",
-                       "XL"
-                   ],
-                  "advance" => true
-               ],
-               [
-                   "name" => "Design",
-                  "values" => [
-                       "Fabric",
-                       "Silk"
-                   ],
-                  "advance" => true
-               ]
-            ],
-            "changes" => null,
             "status" => "pending",
             "approved_at" => null,
             "last_approved_at" => null,
