@@ -45,7 +45,7 @@ export default function Dashboard() {
                                         <td className="py-3 px-4 capitalize">{ category?.slug || '' }</td>
                                         {/* <td className="py-3 px-4">{{ category?.products .length || 0 }}</td> */}
                                         <td className="py-3 px-4">
-                                            <Link href={`/`} className="font-medium text-blue-600 hover:text-blue-800">
+                                            <Link href={`/categories/${category.id}`} className="font-medium text-blue-600 hover:text-blue-800">
                                                 View
                                             </Link>
                                         </td>
