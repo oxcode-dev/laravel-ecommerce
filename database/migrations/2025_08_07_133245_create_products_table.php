@@ -25,6 +25,17 @@ return new class extends Migration
             $table->timestamp('approved_at')->nullable();
             $table->timestamp('last_approved_at')->nullable();
             $table->timestamps();
+
+            category_id INT,
+            title VARCHAR(255),
+            description TEXT,
+            price DECIMAL(10, 2),
+            stock INT,
+            sku VARCHAR(50),
+            rating FLOAT DEFAULT 0,
+            is_active BOOLEAN DEFAULT TRUE,
+            created_at TIMESTAMP,
+            updated_at TIMESTAMP,
         });
     }
 
