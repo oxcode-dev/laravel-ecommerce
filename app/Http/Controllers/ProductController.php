@@ -68,7 +68,7 @@ class ProductController extends Controller
     {
         return Inertia::render('products/form', [
             'status' => $request->session()->get('status'),
-            'Product' => $product,
+            'product' => $product,
         ]);
     }
 

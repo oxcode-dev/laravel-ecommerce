@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { CategoryItem, type BreadcrumbItem } from '@/types';
+import { ProductItem, type BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
@@ -12,33 +12,36 @@ import { LoaderCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Categories',
-        href: '/categories',
+        title: 'Products',
+        href: '/products',
     },
 ];
 
-type CategoryForm = {
-    name: string;
+type ProductForm = {
+    name: string | null;
+    title: string;
     description: string;
     id: string | null;
 };
 
 export default function Dashboard() {
     // @ts-ignore
-    const category: CategoryItem = usePage().props.category
+    const product: ProductItem = usePage().props.product
+    const error = usePage().props.error
 
-    const { data, setData, post, processing, errors, reset } = useForm<Required<CategoryForm>>({
-        name: category?.name || '',
-        description: category?.description || '',
-        id: category?.id || null,
+    const { data, setData, post, processing, errors, reset } = useForm<Required<ProductForm>>({
+        title: product?.title || '',
+        description: product?.description || '',
+        id: product?.id || null,
+        name: null,
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('categories.store'), {
-            onFinish: () => {
-                alert('Category Saved Successfully!!!')
-                router.visit('/categories ')
+        post(route('products.store'), {
+            onSuccess: () => {
+                alert('Product Saved Successfully!!!')
+                router.visit('/products ')
             } 
         });
     };
@@ -46,25 +49,29 @@ export default function Dashboard() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Categories" />
+            <Head title="Products" />
+
+            <pre>
+            {errors.name && <div>{errors.name}</div>}
+            </pre>
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
                 <div className="bg-transparent shadow-sm overflow-hidden sm:rounded-lg my-4">
                     <div className="px-4 py-5 w-full md:max-w-lg">
                         <form onSubmit={submit} className="space-y-2">
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="title">Title</Label>
                                 <Input
-                                    id="name"
+                                    id="title"
                                     type="text"
                                     required
                                     autoFocus
-                                    autoComplete="name"
-                                    value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
-                                    placeholder="category name..."
+                                    autoComplete="title"
+                                    value={data.title}
+                                    onChange={(e) => setData('title', e.target.value)}
+                                    placeholder="Product title..."
                                 />
-                                <InputError message={errors.name} />
+                                <InputError message={errors.title} />
                             </div>
                         
                             <div className="grid gap-2">
