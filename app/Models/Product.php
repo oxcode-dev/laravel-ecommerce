@@ -17,11 +17,11 @@ class Product extends Model
         'description',
         'is_active',
         'slug',
-        'images',
+        'image',
         'price',
         'summary',
         'user_id',
-        'status',
+        // 'status',
         'category_id' 
     ];
 

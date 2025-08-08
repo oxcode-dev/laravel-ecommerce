@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -38,6 +39,7 @@ class ProductController extends Controller
     {
         return Inertia::render('products/form', [
             'status' => $request->session()->get('status'),
+            'categories' => Category::all(),
         ]);
     }
 
@@ -46,7 +48,6 @@ class ProductController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'summary' => ['sometimes'],
-            'status' => ['sometimes'],
             'description' => ['sometimes'],
             'category_id' => ['sometimes'],
             'price' => ['sometimes'],
@@ -57,6 +58,8 @@ class ProductController extends Controller
         $product = $request->input('id') !== null 
             ? Product::find($request->input('id'))
             : new Product();
+
+        dd($data);
 
         $product->name = $data['name'];
         $product->description = $data['description'];
@@ -75,6 +78,7 @@ class ProductController extends Controller
         return Inertia::render('products/form', [
             'status' => $request->session()->get('status'),
             'product' => $product,
+            'categories' => Category::all(),
         ]);
     }
 
