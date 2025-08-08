@@ -13,6 +13,6 @@ Route::get('/test', function() {
     return response()->json([
         'hello' => 'world',
         'categories' => Category::all(),
-        'products' => Product::all(),
+        'products' => Product::search('')->get(),
     ]);
 });

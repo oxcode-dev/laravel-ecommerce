@@ -30,6 +30,11 @@ class Product extends Model
         return $this->BelongsTo(Category::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->BelongsTo(User::class);
+    }
+
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
@@ -47,7 +52,7 @@ class Product extends Model
 
     public static function search($query)
     {
-        $relations = ['comments', 'category'];
+        $relations = ['category', 'category'];
 
         return empty($query) ? static::query()->with($relations)
             : static::with($relations)
