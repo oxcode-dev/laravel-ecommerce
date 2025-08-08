@@ -61,6 +61,7 @@ export interface ProductItem {
     title: string;
     slug: string;
     category: CategoryItem;
+    user: User | null;
     description: string | null;
     created_at: string | null;
 }
