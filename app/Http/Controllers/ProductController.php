@@ -26,12 +26,11 @@ class ProductController extends Controller
 
     public function view(Request $request, Product $product)//: Response
     {
-        // $product = $product::with('products')->whereId($product->id)->firstOrFail();
-        $product = $product::whereId($product->id)->firstOrFail();
+        $product = $product::search('')->whereId($product->id)->firstOrFail();
 
         return Inertia::render('products/show', [
             'status' => $request->session()->get('status'),
-            'Product' => $product,
+            'product' => $product,
         ]);
     }
 

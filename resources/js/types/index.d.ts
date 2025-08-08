@@ -60,6 +60,7 @@ export interface ProductItem {
     id: string;
     title: string;
     slug: string;
+    category: CategoryItem;
     description: string | null;
     created_at: string | null;
 }
