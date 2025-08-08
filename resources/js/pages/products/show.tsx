@@ -45,12 +45,16 @@ export default function Dashboard() {
                     <div className="px-4 py-5 sm:p-0">
                         <dl className="sm:divide-y sm:divide-gray-200 capitalize text-gray-900 dark:text-gray-100">
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Name</dt>
+                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Title</dt>
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.title || '' }</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">Slug</dt>
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.slug || '' }</dd>
+                            </div>
+                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Category</dt>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.category?.name || '' }</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">description</dt>

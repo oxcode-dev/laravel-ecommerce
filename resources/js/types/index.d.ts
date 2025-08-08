@@ -63,7 +63,13 @@ export interface ProductItem {
     category: CategoryItem;
     user: User | null;
     description: string | null;
+    summary: string | null;
+    images: string | null;
+    status: string | null;
+    price: number | null;
+    stock: number | null;
     created_at: string | null;
+    is_active: boolean;
 }
 
 export interface ProductType {
