@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2)->default(0.00);
             $table->integer('stock')->default(0);
             $table->boolean('is_active')->default(true);
-            $table->json('images')->nullable();
+            $table->text('image')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });

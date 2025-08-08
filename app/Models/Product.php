@@ -13,12 +13,15 @@ class Product extends Model
 
     protected $fillable = [
         'title',
-        'author',
+        'stock',
         'description',
-        'content',
-        'url',
-        'image',
-        'source',
+        'is_active',
+        'slug',
+        'images',
+        'price',
+        'summary',
+        'user_id',
+        'status',
         'category_id' 
     ];
 
@@ -51,5 +54,13 @@ class Product extends Model
                 ->where('title', 'like', '%'.$query.'%')
                 ->orWhere('source', 'like', '%'.$query.'%')
                 ->orWhere('author', 'like', '%'.$query.'%');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            // 'images' => 'array',
+            'is_active' => 'boolean',
+        ];
     }
 }

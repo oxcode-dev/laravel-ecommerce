@@ -27,12 +27,9 @@ class ProductFactory extends Factory
             "summary" => $this->faker->realText(150),
             "description" => $this->faker->realText(),
             "slug" => Str::slug($title),
-            "is_active" => true,
+            "is_active" => fake()->boolean(45),
             "price" => fake()->randomFloat(2, 10, 1000),
-            "images" => [
-                $this->faker->imageUrl(),
-                $this->faker->imageUrl()
-            ],
+            "image" => fake()->imageUrl(),
             'stock' => fake()->numberBetween(1, 100),
             "status" => "pending",
         ];
