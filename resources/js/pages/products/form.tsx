@@ -18,22 +18,30 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 type ProductForm = {
-    name: string | null;
     title: string;
     description: string;
+    summary: string;
+    category_id: string;
+    status: string;
     id: string | null;
+    stock: number;
+    price: number;
+    is_active: boolean;
 };
 
 export default function Dashboard() {
     // @ts-ignore
     const product: ProductItem = usePage().props.product
-    const error = usePage().props.error
-
     const { data, setData, post, processing, errors, reset } = useForm<Required<ProductForm>>({
         title: product?.title || '',
         description: product?.description || '',
+        summary: product?.description || '',
+        status: product?.description || '',
+        stock: product?.stock || 0,
+        price: product?.price || 0,
+        is_active: product?.is_active || false,
+        category_id: product?.category?.id || '',
         id: product?.id || null,
-        name: null,
     });
 
     const submit: FormEventHandler = (e) => {
