@@ -36,7 +36,7 @@ export default function Dashboard() {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('categories.store'), {
-            onFinish: () => {
+            onSuccess: () => {
                 alert('Category Saved Successfully!!!')
                 router.visit('/categories ')
             } 

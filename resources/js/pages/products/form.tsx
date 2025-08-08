@@ -51,10 +51,6 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
 
-            <pre>
-            {errors.name && <div>{errors.name}</div>}
-            </pre>
-
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
                 <div className="bg-transparent shadow-sm overflow-hidden sm:rounded-lg my-4">
                     <div className="px-4 py-5 w-full md:max-w-lg">
