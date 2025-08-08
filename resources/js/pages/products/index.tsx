@@ -17,7 +17,7 @@ export default function Dashboard() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head title="Products" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div className="flex justify-end px-4">
@@ -31,7 +31,7 @@ export default function Dashboard() {
                     <table className="min-w-full bg-transparent">
                         <thead>
                             <tr className="bg-gray-500 text-white border-b">
-                                <th className="py-3 px-4 text-left">Name</th>
+                                <th className="py-3 px-4 text-left">Title</th>
                                 <th className="py-3 px-4 text-left">Slug</th>
                                 {/* <th className="py-3 px-4 text-left">Product</th> */}
                                 <th className="py-3 px-4 text-left">Action</th>
