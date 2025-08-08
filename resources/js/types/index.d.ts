@@ -55,3 +55,15 @@ export interface CategoryItem {
 export interface CategoryType {
     data: CategoryItem[];
 }
+
+export interface ProductItem {
+    id: string;
+    title: string;
+    slug: string;
+    description: string | null;
+    created_at: string | null;
+}
+
+export interface ProductType {
+    data: ProductItem[];
+}

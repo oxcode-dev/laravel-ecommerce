@@ -1,19 +1,19 @@
 import AppLayout from '@/layouts/app-layout';
-import { CategoryItem, type BreadcrumbItem, CategoryType } from '@/types';
+import { type BreadcrumbItem, ProductType, ProductItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Categories',
-        href: '/categories',
+        title: 'Products',
+        href: '/products',
     },
 ];
 
 export default function Dashboard() {
     // @ts-ignore
-    const categories: CategoryType = usePage().props.categories
-    const categoriesData: CategoryItem[] = categories?.data || {}
+    const products: ProductType = usePage().props.products
+    const productsData: ProductItem[] = products?.data || {}
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -21,7 +21,7 @@ export default function Dashboard() {
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div className="flex justify-end px-4">
-                <Link href="/categories/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
+                <Link href="/products/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
                     Create
                 </Link>
             </div>
@@ -39,13 +39,13 @@ export default function Dashboard() {
                         </thead>
                         <tbody className="">
                             {
-                                categoriesData.map((category, key) => (
-                                    <tr v-for="(category, key) in categoriesData" key={key} className="border-b border-blue-gray-200 capitalize">
-                                        <td className="py-3 px-4">{ category?.name || '' }</td>
-                                        <td className="py-3 px-4 capitalize">{ category?.slug || '' }</td>
-                                        {/* <td className="py-3 px-4">{{ category?.products .length || 0 }}</td> */}
+                                productsData.map((product, key) => (
+                                    <tr v-for="(product, key) in productsData" key={key} className="border-b border-blue-gray-200 capitalize">
+                                        <td className="py-3 px-4">{ product?.title || '' }</td>
+                                        <td className="py-3 px-4 capitalize">{ product?.slug || '' }</td>
+                                        {/* <td className="py-3 px-4">{{ product?.products .length || 0 }}</td> */}
                                         <td className="py-3 px-4">
-                                            <Link href={`/categories/${category.id}`} className="font-medium text-blue-600 hover:text-blue-800">
+                                            <Link href={`/products/${product.id}`} className="font-medium text-blue-600 hover:text-blue-800">
                                                 View
                                             </Link>
                                         </td>
@@ -58,7 +58,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="py-6">
-                    {/* <Pager :item="categories" /> */}
+                    {/* <Pager :item="products" /> */}
                 </div>
             </div>
         </div>
