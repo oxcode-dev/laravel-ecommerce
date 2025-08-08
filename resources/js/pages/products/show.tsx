@@ -57,6 +57,26 @@ export default function Dashboard() {
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.category?.name || '' }</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Owner</dt>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.user?.name || '' }</dd>
+                            </div>
+                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Price</dt>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.price || '' }</dd>
+                            </div>
+                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Stock (Unit)</dt>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.stock || '' }</dd>
+                            </div>
+                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Status</dt>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.status || '' }</dd>
+                            </div>
+                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Summary</dt>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.summary || '' }</dd>
+                            </div>
+                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">description</dt>
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.description || '' }</dd>
                             </div>
@@ -64,7 +84,12 @@ export default function Dashboard() {
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">Created Date</dt>
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.created_at || '' }</dd>
                             </div>
+                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Product Active</dt>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ product?.is_active ? 'Yes' : 'No' }</dd>
+                            </div>
                         </dl>
+    {/* images: string | null; */}
                     </div>
                 </div>
             </div>
