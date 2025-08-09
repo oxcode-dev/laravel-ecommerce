@@ -12,9 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->timestamps();
         });
+
+//         id INT PRIMARY KEY AUTO_INCREMENT,
+//   user_id INT,
+//   address_id INT,
+//   total_amount DECIMAL(10,2),
+//   status ENUM('pending', 'paid', 'shipped', 'delivered', 'cancelled'),
+//   payment_method VARCHAR(50),
+//   payment_status ENUM('unpaid', 'paid', 'refunded'),
+//   created_at TIMESTAMP,
+//   updated_at TIMESTAMP,
     }
 
     /**
