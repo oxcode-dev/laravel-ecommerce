@@ -10,15 +10,13 @@ class Review extends Model
 {
     /** @use HasFactory<\Database\Factories\ReviewFactory> */
     use HasFactory;
-
+    
     protected $fillable = [
         'user_id',
-        'address_id',
-        'total_amount',
-        'delivery_cost',
-        'status',
-        'payment_status',
-        'payment_method',
+        'product_id',
+        'rating',
+        'comment',
+        'created_at',
     ];
 
     public function user() :BelongsTo
@@ -26,14 +24,9 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function address() :BelongsTo
+    public function product() :BelongsTo
     {
-        return $this->belongsTo(Address::class);
-    }
-
-    public function orderItems()
-    {
-        return $this->hasMany(OrderItem::class);
+        return $this->belongsTo(Product::class);
     }
 
     public static function search($query)
