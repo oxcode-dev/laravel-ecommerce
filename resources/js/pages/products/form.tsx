@@ -96,12 +96,11 @@ export default function Dashboard() {
                                         ))
                                     }
                                 </select>
-                                {/* <div>{data.category_id}</div> */}
                                 <InputError message={errors.category_id} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="price">Price</Label>
+                                <Label htmlFor="price">Price ($)</Label>
                                 <Input
                                     id="price"
                                     type="number"
