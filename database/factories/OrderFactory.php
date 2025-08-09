@@ -22,8 +22,8 @@ class OrderFactory extends Factory
             'id' => fake()->uuid(),
             'user_id' => User::factory(),
             'address_id' => Address::factory(),
-            'total_amount' => fake()->floatval(2),
-            'delivery_cost' => fake()->floatval(2),
+            'total_amount' => fake()->randomFloat(2, 10, 1000),
+            'delivery_cost' => fake()->randomFloat(2, 10, 1000),
         ];
     }
 }
