@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id');
+            $table->text('street')->nullable();
+            $table->string('city');
+            $table->string('state')->nullable();
+            $table->string('country');
+            $table->string('postal_code')->nullable();
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
         });
     }
