@@ -1,24 +1,24 @@
 import Pager from '@/components/Pager';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem, ProductType, ProductItem } from '@/types';
+import { type BreadcrumbItem, OrderType, OrderItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Products',
-        href: '/products',
+        title: 'Orders',
+        href: '/orders',
     },
 ];
 
 export default function Dashboard() {
     // @ts-ignore
-    const products: ProductType = usePage().props.products
-    const productsData: ProductItem[] = products?.data || {}
+    const orders: OrderType = usePage().props.orders
+    const ordersData: OrderItem[] = orders?.data || {}
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Products" />
+            <Head title="Orders" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div className="flex justify-end px-4">
@@ -32,23 +32,23 @@ export default function Dashboard() {
                     <table className="min-w-full bg-transparent">
                         <thead>
                             <tr className="bg-gray-500 text-white border-b">
-                                <th className="py-3 px-4 text-left">Title</th>
-                                <th className="py-3 px-4 text-left">Category</th>
-                                <th className="py-3 px-4 text-left">Price($)</th>
-                                <th className="py-3 px-4 text-left">Owner</th>
+                                <th className="py-3 px-4 text-left">User</th>
+                                <th className="py-3 px-4 text-left">Date</th>
+                                <th className="py-3 px-4 text-left">Total($)</th>
+                                <th className="py-3 px-4 text-left">Status</th>
                                 <th className="py-3 px-4 text-left">Action</th>
                             </tr>
                         </thead>
                         <tbody className="">
                             {
-                                productsData.map((product, key) => (
-                                    <tr v-for="(product, key) in productsData" key={key} className="border-b border-blue-gray-200 capitalize">
-                                        <td className="py-3 px-4">{ product?.title || '' }</td>
-                                        <td className="py-3 px-4">{ product?.category?.name }</td>
-                                        <td className="py-3 px-4 capitalize">{ product?.price || '' }</td>
-                                        <td className="py-3 px-4">{ product?.user?.name }</td>
+                                ordersData.map((order, key) => (
+                                    <tr key={key} className="border-b border-blue-gray-200 capitalize">
+                                        <td className="py-3 px-4">{ order?.user?.name || '' }</td>
+                                        <td className="py-3 px-4">{ order?.created_at }</td>
+                                        <td className="py-3 px-4 capitalize">{ order?.total_amount || 0 }</td>
+                                        <td className="py-3 px-4">{ order?.status }</td>
                                         <td className="py-3 px-4">
-                                            <Link href={`/products/${product.id}`} className="font-medium text-blue-600 hover:text-blue-800">
+                                            <Link href={`/orders/${order.id}`} className="font-medium text-blue-600 hover:text-blue-800">
                                                 View
                                             </Link>
                                         </td>
@@ -62,10 +62,10 @@ export default function Dashboard() {
 
                 <div className="py-6">
                     <Pager 
-                        prev_page_url={products?.prev_page_url}
-                        next_page_url={products?.next_page_url}
-                        last_page={products?.last_page}
-                        current_page={products?.current_page}
+                        prev_page_url={orders?.prev_page_url}
+                        next_page_url={orders?.next_page_url}
+                        last_page={orders?.last_page}
+                        current_page={orders?.current_page}
                     />
                 </div>
             </div>

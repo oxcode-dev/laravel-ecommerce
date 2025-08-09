@@ -42,7 +42,7 @@ export default function Dashboard() {
                         <tbody className="">
                             {
                                 productsData.map((product, key) => (
-                                    <tr v-for="(product, key) in productsData" key={key} className="border-b border-blue-gray-200 capitalize">
+                                    <tr key={key} className="border-b border-blue-gray-200 capitalize">
                                         <td className="py-3 px-4">{ product?.title || '' }</td>
                                         <td className="py-3 px-4">{ product?.category?.name }</td>
                                         <td className="py-3 px-4 capitalize">{ product?.price || '' }</td>
