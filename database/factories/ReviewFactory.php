@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,12 +19,11 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            //
-            // $table->foreignUuid('product_id');
-            // $table->foreignUuid('user_id');
-            // $table->integer('rating')->default(1);
-            // $table->text('comment');
-            // $table->timestamp('created_at');
+            'id' => fake()->uuid(),
+            'product_id' => Product::factory(),
+            'user_id' => User::factory(),
+            'rating' => fake()->randomFloat(1, 2, 5),
+            'comment' => fake()->realText(250),
         ];
     }
 }
