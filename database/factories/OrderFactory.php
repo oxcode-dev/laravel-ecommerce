@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Address;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,11 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id' => fake()->uuid(),
+            'user_id' => User::factory(),
+            'address_id' => Address::factory(),
+            'total_amount' => fake()->floatval(2),
+            'delivery_cost' => fake()->floatval(2),
         ];
     }
 }
