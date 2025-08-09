@@ -1,7 +1,12 @@
 <?php
 
+use App\Models\Address;
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Review;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,5 +19,10 @@ Route::get('/test', function() {
         'hello' => 'world',
         'categories' => Category::all(),
         'products' => Product::search('')->get(),
+        'orders' => Order::search('')->get(),
+        'orderItems' => OrderItem::search('')->get(),
+        'wishlists' => Wishlist::search('')->get(),
+        'reviews' => Review::search('')->get(),
+        'addresses' => Address::search('')->get(),
     ]);
 });
