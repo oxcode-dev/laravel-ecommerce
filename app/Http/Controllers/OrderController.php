@@ -17,6 +17,8 @@ class OrderController extends Controller
             )    
             ->paginate($request->get('perPage', 5));
 
+        dd($orders->toArray());
+
         return Inertia::render('orders/index', [
             'status' => $request->session()->get('status'),
             'orders' => $orders,
