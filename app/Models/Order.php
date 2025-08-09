@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
-    use HasFactory;
+    use HasFactory, HasUuids, Notifiable;
 
     protected $fillable = [
         'user_id',
@@ -38,7 +40,7 @@ class Order extends Model
 
     public static function search($query)
     {
-        $relations = ['products'];
+        $relations = ['user'];
 
         return empty($query) ? static::query()//    ->with($relations)
             : static::with($relations)
