@@ -1,3 +1,4 @@
+import Pager from '@/components/Pager';
 import AppLayout from '@/layouts/app-layout';
 import { CategoryItem, type BreadcrumbItem, CategoryType } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
@@ -58,7 +59,12 @@ export default function Dashboard() {
                 </div>
 
                 <div className="py-6">
-                    {/* <Pager :item="categories" /> */}
+                    <Pager 
+                        prev_page_url={categories?.prev_page_url}
+                        next_page_url={categories?.next_page_url}
+                        last_page={categories?.last_page}
+                        current_page={categories?.current_page}
+                    />
                 </div>
             </div>
         </div>
