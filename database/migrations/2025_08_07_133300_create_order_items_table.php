@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
         });
+
+        // order_id INT,
+        // product_id INT,
+        // quantity INT,
+        // unit_price DECIMAL(10,2),
     }
 
     /**

@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('user_id');
+            $table->foreignUuid('address_id');
+            $table->decimal('total_amount', 10, 2)->default(0.00);
+            $table->decimal('delivery_cost', 10, 2)->default(0.00);
+            $table->enum('status',['pending', 'paid', 'shipped', 'delivered', 'cancelled'])->default('pending');
+            $table->enum('payment_method', ['cash', 'bank transfer', 'online payment'])->nullable();
+            $table->enum('payment_status', ['unpaid', 'paid', 'refunded'])->default('unpaid');
             $table->timestamps();
         });
-
-//         id INT PRIMARY KEY AUTO_INCREMENT,
-//   user_id INT,
-//   address_id INT,
-//   total_amount DECIMAL(10,2),
-//   status ENUM('pending', 'paid', 'shipped', 'delivered', 'cancelled'),
-//   payment_method VARCHAR(50),
-//   payment_status ENUM('unpaid', 'paid', 'refunded'),
-//   created_at TIMESTAMP,
-//   updated_at TIMESTAMP,
     }
 
     /**
