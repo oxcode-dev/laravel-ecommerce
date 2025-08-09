@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
@@ -11,14 +12,28 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'slug',
-        'description',
+        'user_id',
+        'address_id',
+        'total_amount',
+        'delivery_cost',
+        'status',
+        'payment_status',
+        'payment_method',
     ];
 
-    public function products()
+    public function user() :BelongsTo
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function address() :BelongsTo
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 
     public static function search($query)
