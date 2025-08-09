@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,6 +31,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::delete('/{product}/delete', [ProductController::class, 'delete'])->name('products.delete');
         Route::get('/{product}', [ProductController::class, 'view'])->name('products.view');
+    });
+
+    Route::prefix('orders')->group(function() {
+        Route::get('/', [OrderController::class, 'index'])->name('orders');
+        Route::get('/create', [OrderController::class, 'create'])->name('orders.create');
+        Route::post('/store', [OrderController::class, 'store'])->name('orders.store');
+        Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+        Route::delete('/{order}/delete', [OrderController::class, 'delete'])->name('orders.delete');
+        Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
     });
 });
 
