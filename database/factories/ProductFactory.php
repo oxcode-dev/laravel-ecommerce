@@ -31,7 +31,7 @@ class ProductFactory extends Factory
             "price" => fake()->randomFloat(2, 10, 1000),
             "image" => fake()->imageUrl(),
             'stock' => fake()->numberBetween(1, 100),
-            "status" => "pending",
+            // "status" => "pending",
         ];
     }
 }

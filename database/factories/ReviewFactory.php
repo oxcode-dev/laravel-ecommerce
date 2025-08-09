@@ -24,6 +24,7 @@ class ReviewFactory extends Factory
             'user_id' => User::factory(),
             'rating' => fake()->randomFloat(1, 2, 5),
             'comment' => fake()->realText(250),
+            'created_at' => now(),
         ];
     }
 }
