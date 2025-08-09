@@ -53,6 +53,10 @@ export interface CategoryItem {
 }
 
 export interface CategoryType {
+    prev_page_url: string;
+    next_page_url: string;
+    last_page: string;
+    current_page: string;
     data: CategoryItem[];
 }
 
@@ -73,5 +77,9 @@ export interface ProductItem {
 }
 
 export interface ProductType {
+    prev_page_url: string;
+    next_page_url: string;
+    last_page: string;
+    current_page: string;
     data: ProductItem[];
 }

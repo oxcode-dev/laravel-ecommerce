@@ -17,7 +17,7 @@ class ProductController extends Controller
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 10));
+            ->paginate($request->get('perPage', 5));
 
         // dd($products->toArray());
 
