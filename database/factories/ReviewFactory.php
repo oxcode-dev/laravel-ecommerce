@@ -18,6 +18,11 @@ class ReviewFactory extends Factory
     {
         return [
             //
+            // $table->foreignUuid('product_id');
+            // $table->foreignUuid('user_id');
+            // $table->integer('rating')->default(1);
+            // $table->text('comment');
+            // $table->timestamp('created_at');
         ];
     }
 }
