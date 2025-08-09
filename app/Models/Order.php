@@ -40,9 +40,9 @@ class Order extends Model
 
     public static function search($query)
     {
-        $relations = ['user'];
+        $relations = ['user', 'address'];
 
-        return empty($query) ? static::query()//    ->with($relations)
+        return empty($query) ? static::with($relations)
             : static::with($relations)
                 ->where('name', 'like', '%'.$query.'%')
                 ->orWhere('slug', 'like', '%'.$query.'%');
