@@ -11,14 +11,6 @@ class OrderItem extends Model
     /** @use HasFactory<\Database\Factories\OrderItemFactory> */
     use HasFactory;
 
-
-    // $table->id();
-    // $table->foreignUuid('order_id');
-    // $table->foreignUuid('product_id');
-    // $table->integer('quantity')->default(0);
-    // $table->decimal('unit_price', 10, 2)->default(0.00);
-    // $table->timestamps();
-
     protected $fillable = [
         'order_id',
         'product_id',
