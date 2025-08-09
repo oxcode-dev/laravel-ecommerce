@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignUuid('user_id');
             $table->integer('rating')->default(1);
             $table->text('comment');
-            $table->timestamp('created_at');
+            $table->timestamps();
         });
     }
 

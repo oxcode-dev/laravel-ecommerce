@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id');
             $table->foreignUuid('product_id');
-            $table->timestamp('created_at');
+            $table->timestamps();
         });
     }
 
