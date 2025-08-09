@@ -19,6 +19,8 @@ class ProductController extends Controller
             )    
             ->paginate($request->get('perPage', 10));
 
+        // dd($products->toArray());
+
         return Inertia::render('products/index', [
             'status' => $request->session()->get('status'),
             'products' => $products,
@@ -59,11 +61,17 @@ class ProductController extends Controller
             ? Product::find($request->input('id'))
             : new Product();
 
-        dd($data);
+        // dd($data);
 
-        $product->name = $data['name'];
+        $product->title = $data['title'];
         $product->description = $data['description'];
-        $product->slug = Str::slug($data['name']) . '-' . strtotime(now());
+        $product->summary = $data['summary'];
+        $product->is_active = $data['is_active'];
+        $product->category_id = $data['category_id'];
+        $product->price = $data['price'];
+        $product->stock = $data['stock'];
+        $product->user_id = $request->user()->id;
+        $product->slug = Str::slug($data['title']) . '-' . strtotime(now());
 
         $product->save();
 
@@ -77,7 +85,7 @@ class ProductController extends Controller
     {
         return Inertia::render('products/form', [
             'status' => $request->session()->get('status'),
-            'product' => $product,
+            'product' => $product::search('')->whereId($product->id)->firstOrFail(),
             'categories' => Category::all(),
         ]);
     }

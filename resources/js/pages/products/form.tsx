@@ -23,7 +23,6 @@ type ProductForm = {
     description: string;
     summary: string;
     category_id: string;
-    status: string;
     id: string | null;
     stock: number | null;
     price: number | null;
@@ -38,8 +37,7 @@ export default function Dashboard() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<ProductForm>>({
         title: product?.title || '',
         description: product?.description || '',
-        summary: product?.description || '',
-        status: product?.description || '',
+        summary: product?.summary || '',
         stock: product?.stock || null,
         price: product?.price || null,
         is_active: product?.is_active || false,
@@ -82,11 +80,12 @@ export default function Dashboard() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="price">Price</Label>
+                                <Label htmlFor="category_id">Category</Label>
                                 <select
                                     id="category_id"
                                     required
-                                    v-model="form.category_id"
+                                    value={data?.category_id}
+                                    onChange={(e) => setData('category_id', e.target.value)}
                                     className="block w-full pl-2 pr-10 py-2 text-base border focus:border-gray-300 focus:outline-hidden sm:text-sm rounded-md capitalize"
                                 >
                                     {
@@ -96,9 +95,9 @@ export default function Dashboard() {
                                             </option>
                                         ))
                                     }
-                                   
                                 </select>
-                                <InputError message={errors.price} />
+                                {/* <div>{data.category_id}</div> */}
+                                <InputError message={errors.category_id} />
                             </div>
 
                             <div className="grid gap-2">

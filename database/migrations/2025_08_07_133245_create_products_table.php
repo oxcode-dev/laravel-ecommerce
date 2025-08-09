@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->boolean('is_active')->default(true);
             $table->text('image')->nullable();
-            $table->string('status')->default('pending');
+            // $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

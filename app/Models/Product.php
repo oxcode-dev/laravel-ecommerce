@@ -65,6 +65,7 @@ class Product extends Model
     {
         return [
             // 'images' => 'array',
+            // 'category_id' => 'uuid',
             'is_active' => 'boolean',
         ];
     }
