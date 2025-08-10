@@ -121,10 +121,11 @@ export interface AddressItem {
 }
 
 export interface OrderItemsType {
+    id: number,
     order_id: string;
     product_id: string;
     quantity: number;
-    unit: number;
+    unit_price: number;
     created_at: string;
     product: ProductItem;
 }
