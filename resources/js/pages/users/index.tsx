@@ -1,24 +1,24 @@
 import Pager from '@/components/Pager';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem, OrderType, OrderItem } from '@/types';
+import { type BreadcrumbItem, User as UserItem, UserType } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Orders',
-        href: '/orders',
+        title: 'Users',
+        href: '/users',
     },
 ];
 
 export default function Dashboard() {
     // @ts-ignore
-    const orders: OrderType = usePage().props.orders
-    const ordersData: OrderItem[] = orders?.data || {}
+    const users: UserType = usePage().props.users
+    const usersData: UserItem[] = users?.data || {}
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Orders" />
+            <Head title="Users" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div className="flex justify-end px-4">
@@ -33,22 +33,20 @@ export default function Dashboard() {
                         <thead>
                             <tr className="bg-gray-500 text-white border-b">
                                 <th className="py-3 px-4 text-left">User</th>
+                                <th className="py-3 px-4 text-left">Email</th>
                                 <th className="py-3 px-4 text-left">Date</th>
-                                <th className="py-3 px-4 text-left">Total($)</th>
-                                <th className="py-3 px-4 text-left">Status</th>
                                 <th className="py-3 px-4 text-left">Action</th>
                             </tr>
                         </thead>
                         <tbody className="">
                             {
-                                ordersData.map((order, key) => (
+                                usersData.map((user, key) => (
                                     <tr key={key} className="border-b border-blue-gray-200 capitalize">
-                                        <td className="py-3 px-4">{ order?.user?.name || '' }</td>
-                                        <td className="py-3 px-4">{ order?.created_at }</td>
-                                        <td className="py-3 px-4 capitalize">{ order?.total_amount || 0 }</td>
-                                        <td className="py-3 px-4">{ order?.status }</td>
+                                        <td className="py-3 px-4">{ user?.name || '' }</td>
+                                        <td className="py-3 px-4 lowercase">{ user?.email || '' }</td>
+                                        <td className="py-3 px-4">{ user?.created_at }</td>
                                         <td className="py-3 px-4">
-                                            <Link href={`/orders/${order.id}`} className="font-medium text-blue-600 hover:text-blue-800">
+                                            <Link href={`/users/${user.id}`} className="font-medium text-blue-600 hover:text-blue-800">
                                                 View
                                             </Link>
                                         </td>
@@ -62,10 +60,10 @@ export default function Dashboard() {
 
                 <div className="py-6">
                     <Pager 
-                        prev_page_url={orders?.prev_page_url}
-                        next_page_url={orders?.next_page_url}
-                        last_page={orders?.last_page}
-                        current_page={orders?.current_page}
+                        prev_page_url={users?.prev_page_url}
+                        next_page_url={users?.next_page_url}
+                        last_page={users?.last_page}
+                        current_page={users?.current_page}
                     />
                 </div>
             </div>
