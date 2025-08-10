@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -37,6 +38,7 @@ class OrderController extends Controller
 
     public function delete(Request $request, Order $order)
     {
+        OrderItem::where('order_id', $order->id)->delete();
         $order->delete();
 
         return redirect('/orders')->with([
