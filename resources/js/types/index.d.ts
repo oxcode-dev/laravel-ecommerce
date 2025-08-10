@@ -88,30 +88,15 @@ export interface OrderItem {
     id: string;
     address_id: string;
     status: string;
-    // category: CategoryItem;
+    address: AddressItem;
     user: User | null;
     user_id: string;
-    summary: string | null;
     payment_method: string | null;
     payment_status: string | null;
     total_amount: number | null;
     delivery_cost: number | null;
     created_at: string | null;
-    is_active: boolean;
 }
-    //   "address_id" => "5c51f8e1-de9b-3948-9d46-5c283131dc5c"
-    //   "address" => array:10 [▼
-    //     "id" => "5c51f8e1-de9b-3948-9d46-5c283131dc5c"
-    //     "user_id" => "01988fab-6bcd-7082-9827-213d98bdb54b"
-    //     "street" => "8763 Randy Parkways Apt. 093"
-    //     "city" => "Jazmynton"
-    //     "state" => "Lake Roscoe"
-    //     "country" => "United States of America"
-    //     "postal_code" => "50234-1078"
-    //     "is_default" => false
-    //     "created_at" => "2025-08-09T16:30:32.000000Z"
-    //     "updated_at" => "2025-08-09T16:30:32.000000Z"
-    //   ]
 
 export interface OrderType {
     prev_page_url: string;
@@ -119,4 +104,17 @@ export interface OrderType {
     last_page: string;
     current_page: string;
     data: OrderItem[];
+}
+
+export interface AddressItem {
+    id: string;
+    user_id: string;
+    phone: string | null;
+    street: string | null;
+    city: string | null;
+    state: string | null;
+    country: string | null;
+    postal_code: string | null;
+    is_default: boolean;
+    created_at: string;
 }
