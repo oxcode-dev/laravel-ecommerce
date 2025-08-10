@@ -2,44 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
     public function index(Request $request)//: Response
     {
-        $orders = Order::search($request->get('search', ''))
-            ->orderBy(
+        // $users = User::search($request->get('search', ''))
+        $users = User::orderBy(
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
             ->paginate($request->get('perPage', 5));
 
-        return Inertia::render('orders/index', [
+        return Inertia::render('users/index', [
             'status' => $request->session()->get('status'),
-            'orders' => $orders,
+            'users' => $users,
         ]);
     }
 
-    public function view(Request $request, Order $order)//: Response
+    public function view(Request $request, User $user)//: Response
     {
-        $order = $order::search('')->whereId($order->id)->firstOrFail();
+        $user = $user::whereId($user->id)->firstOrFail();
 
-        return Inertia::render('orders/show', [
+        return Inertia::render('users/show', [
             'status' => $request->session()->get('status'),
-            'order' => $order,
+            'user' => $user,
         ]);
     }
 
-    public function delete(Request $request, Order $order)
+    public function delete(Request $request, User $user)
     {
-        $user = User::where('id', $order->user_id)->first();
+        $user = User::where('id', $user->user_id)->first();
         
-        OrderItem::where('order_id', $order->id)->delete();
-        $order->delete();
+        $user->delete();
 
-        // Notification::send($user, new OrderDeleteNotification($order));
-        return redirect('/orders')->with([
+        return redirect('/users')->with([
             'status' => $request->session()->get('status'),
         ]);
     }

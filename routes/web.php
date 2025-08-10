@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -40,12 +41,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::prefix('users')->group(function() {
-        Route::get('/', [OrderController::class, 'index'])->name('orders');
-        Route::get('/create', [OrderController::class, 'create'])->name('orders.create');
-        Route::post('/store', [OrderController::class, 'store'])->name('orders.store');
-        Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-        Route::delete('/{order}/delete', [OrderController::class, 'delete'])->name('orders.delete');
-        Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
+        Route::get('/', [UserController::class, 'index'])->name('users');
+        Route::delete('/{order}/delete', [UserController::class, 'delete'])->name('users.delete');
+        Route::get('/{order}', [UserController::class, 'view'])->name('users.view');
     });
 });
 
