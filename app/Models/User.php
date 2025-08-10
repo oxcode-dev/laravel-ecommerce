@@ -53,4 +53,30 @@ class User extends Authenticatable
     {
         return $this->notify(new OrderDeleteNotification($order));
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public static function search($query)
+    {
+        $relations = ['products', 'addresses', 'orders'];
+
+        return empty($query) ? static::query()->with($relations)
+            : static::with($relations)
+                ->where('name', 'like', '%'.$query.'%')
+                // ->orWhere('source', 'like', '%'.$query.'%')
+                ->orWhere('email', 'like', '%'.$query.'%');
+    }
 }
