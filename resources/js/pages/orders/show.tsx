@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { OrderItem, type BreadcrumbItem, ProductItem } from '@/types';
+import { OrderItem, type BreadcrumbItem, ProductItem, OrderItemsType } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
@@ -13,7 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Dashboard() {
     // @ts-ignore
     const order: OrderItem = usePage().props.order
-    const products: ProductItem[] = usePage().props.order?.products
+    const orderItems: OrderItemsType[] = order?.order_items
 
     const form = useForm({});
 
@@ -97,7 +97,7 @@ export default function Dashboard() {
                                 <tr>
                                     <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm">
                                         <div className="flex items-center space-x-4 sm:space-x-6">
-                                            <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-auto">
+                                            <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-auto hidden">
                                                 <img className="w-full object-cover h-full rounded-lg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2.2&amp;w=160&amp;h=160&amp;q=80" alt="" />
                                             </div>
                                             <div className="ml-3 flex flex-col">
@@ -143,6 +143,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
+                    
                     <div className="flex justify-end py-8">
                         <div className="">
                             <div className="py-2 flex justify-end items-center space-x-4 text-gray-500">

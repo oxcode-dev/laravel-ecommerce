@@ -96,6 +96,7 @@ export interface OrderItem {
     total_amount: number | null;
     delivery_cost: number | null;
     created_at: string | null;
+    order_items: []
 }
 
 export interface OrderType {
@@ -117,4 +118,13 @@ export interface AddressItem {
     postal_code: string | null;
     is_default: boolean;
     created_at: string;
+}
+
+export interface OrderItemsType {
+    order_id: string;
+    product_id: string;
+    quantity: number;
+    unit: number;
+    created_at: string;
+    product: ProductItem;
 }
