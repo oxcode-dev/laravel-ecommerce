@@ -43,7 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('users')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::delete('/{order}/delete', [UserController::class, 'delete'])->name('users.delete');
-        Route::get('/{order}', [UserController::class, 'view'])->name('users.view');
+        Route::get('/{user}', [UserController::class, 'view'])->name('users.view');
     });
 });
 

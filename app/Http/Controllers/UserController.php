@@ -27,6 +27,8 @@ class UserController extends Controller
     {
         $user = $user::whereId($user->id)->firstOrFail();
 
+        dd($user->toArray());
+
         return Inertia::render('users/show', [
             'status' => $request->session()->get('status'),
             'user' => $user,
