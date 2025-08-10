@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
@@ -33,14 +34,14 @@ class Order extends Model
         return $this->belongsTo(Address::class);
     }
 
-    public function orderItems()
+    public function orderItems() :HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
 
     public static function search($query)
     {
-        $relations = ['user', 'address'];
+        $relations = ['user', 'address', 'orderItems.product'];
 
         return empty($query) ? static::with($relations)
             : static::with($relations)

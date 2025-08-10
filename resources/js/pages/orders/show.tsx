@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { OrderItem, type BreadcrumbItem } from '@/types';
+import { OrderItem, type BreadcrumbItem, ProductItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
@@ -13,6 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Dashboard() {
     // @ts-ignore
     const order: OrderItem = usePage().props.order
+    const products: ProductItem[] = usePage().props.order?.products
 
     const form = useForm({});
 
@@ -56,14 +57,6 @@ export default function Dashboard() {
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ order?.status || '' }</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Payment Method</dt>
-                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ order?.payment_method || 'Cash' }</dd>
-                            </div>
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Payment Status</dt>
-                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ order?.payment_status || '' }</dd>
-                            </div>
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">Total Amount</dt>
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">$ { order?.total_amount || '' }</dd>
                             </div>
@@ -72,15 +65,99 @@ export default function Dashboard() {
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">$ { order?.delivery_cost || '' }</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500 dark:text-white">Status</dt>
-                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ order?.status || '' }</dd>
-                            </div>
-                            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">Created Date</dt>
                                 <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">{ order?.created_at || '' }</dd>
                             </div>
                             
                         </dl>
+                    </div>
+                </div>
+
+                <div className="my-8">
+                    <div className="dark:bg-white dark:text-gray-700 bg-gray-200 py-3 px-4">
+                        <p>Products</p>
+                    </div>
+                    <div className="w-full hidden sm:inline-block rounded-lg overflow-hidden">
+                        <table className="leading-normal w-full">
+                            <thead>
+                                <tr>
+                                    <th className="px-5 py-3 border-b-2 border-gray-200 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"></th>
+                                    <th className="px-5 py-3 border-b-2 border-gray-200 text-center font-semibold text-gray-600 tracking-wider">
+                                        <h2 className="text-base">Price</h2>
+                                    </th>
+                                    <th className="px-5 py-3 border-b-2 border-gray-200 text-center font-semibold text-gray-600 tracking-wider">
+                                        <h2 className="text-base">Quantity</h2>
+                                    </th>
+                                    <th className="px-5 py-3 border-b-2 border-gray-200 text-center font-semibold text-gray-600 tracking-wider">
+                                        <h2 className="text-base">Total</h2>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm">
+                                        <div className="flex items-center space-x-4 sm:space-x-6">
+                                            <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-auto">
+                                                <img className="w-full object-cover h-full rounded-lg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2.2&amp;w=160&amp;h=160&amp;q=80" alt="" />
+                                            </div>
+                                            <div className="ml-3 flex flex-col">
+                                                <a className="text-gray-700 whitespace-no-wrap text-sm ms:text-lg" href="/store/qhijYaI8qkPdxAiTf3cj">Nivea Body Lotion</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
+                                        <p className="text-gray-900 whitespace-no-wrap">$ 45</p>
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm text-center">
+                                        <div className="inline-flex space-x-6">
+                                            <p className="text-lg">1</p>
+                                        </div>
+                                    </td>
+                                    <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
+                                        <p className="text-gray-900 whitespace-no-wrap">$ 45</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="sm:hidden">
+                        <div className="flex items-start space-x-4 border-t py-4 px-2">
+                            <div className="flex-shrink-0 w-16 sm:h-auto mt-1.5">
+                                <img className="w-full object-cover h-full rounded-lg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2.2&amp;w=160&amp;h=160&amp;q=80" alt="" />
+                            </div>
+                            <div className="ml-3 w-full relative">
+                                <a className="text-gray-700 whitespace-no-wrap font-medium text-base" href="/store/qhijYaI8qkPdxAiTf3cj">
+                                    Voluptatem ut dolore Soap
+                                </a>
+                                <p className="text-gray-500 whitespace-no-wrap">$ 610</p>
+                                <div className="space-x-2 flex items-center w-full">
+                                    <div className="flex space-x-3 items-center text-sm text-gray-500">
+                                        <span>qty: </span>
+                                        <span>1</span>
+                                    </div>
+                                </div>
+                                <div className="absolute bottom-1 right-0">
+                                    <p className="text-gray-900 whitespace-no-wrap font-semibold text-xl">$ 610</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex justify-end py-8">
+                        <div className="">
+                            <div className="py-2 flex justify-end items-center space-x-4 text-gray-500">
+                                <h6 className="font-medium text-sm">Subtotal</h6>
+                                <h6 className="font-medium text-xl">$ 45</h6>
+                            </div>
+                            <div className="py-2 flex justify-end items-center space-x-4 text-gray-500">
+                                <h6 className="font-medium text-sm">Shipping cost</h6>
+                                <h6 className="font-medium text-xl">$ 8</h6>
+                            </div>
+                            <div className="py-2 flex justify-end items-end space-x-3">
+                                <h3 className="uppercase font-semibold text-lg">Total</h3>
+                                <h1 className="uppercase font-bold text-4xl">$ 53</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -101,11 +178,11 @@ export default function Dashboard() {
                             <h2 className="text-sm dark:text-white text-gray-600 font-semibold mb-2">Payment Information</h2>
                             <p className="text-xs capitalize">Payment Status: { order?.payment_status }</p>
                             <p className="text-xs capitalize">Payment Method: { order?.payment_method || 'Cash' }</p>
-                            {/* <p className="text-xs capitalize">VAT: £0.00</p> */}
+                            {/* <p className="text-xs capitalize">VAT: $0.00</p> */}
                             <p className="text-xs capitalize">Shipping Cost: ${ order.delivery_cost || 0 }</p>
-                            {/* <p className="text-xs capitalize">Sub-total: £{ moneyFormat(order.subTotal || 0) }</p> */}
-                            {/* <p className="text-xs capitalize">Discount Amount: £{ moneyFormat(order.discountAmount || 0) }</p> */}
-                            {/* <p className="text-xs capitalize">Total Cost: £{ moneyFormat(order.total || 0) }</p> */}
+                            {/* <p className="text-xs capitalize">Sub-total: ${ moneyFormat(order.subTotal || 0) }</p> */}
+                            {/* <p className="text-xs capitalize">Discount Amount: ${ moneyFormat(order.discountAmount || 0) }</p> */}
+                            {/* <p className="text-xs capitalize">Total Cost: ${ moneyFormat(order.total || 0) }</p> */}
                         </div>
                     </div>
                 </div>
