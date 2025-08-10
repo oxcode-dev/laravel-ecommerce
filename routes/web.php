@@ -41,6 +41,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/{order}/delete', [OrderController::class, 'delete'])->name('orders.delete');
         Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
     });
+
+    Route::prefix('users')->group(function() {
+        Route::get('/', [OrderController::class, 'index'])->name('orders');
+        Route::get('/create', [OrderController::class, 'create'])->name('orders.create');
+        Route::post('/store', [OrderController::class, 'store'])->name('orders.store');
+        Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+        Route::delete('/{order}/delete', [OrderController::class, 'delete'])->name('orders.delete');
+        Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
+    });
 });
 
 
