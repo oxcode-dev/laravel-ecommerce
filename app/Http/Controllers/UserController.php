@@ -11,7 +11,22 @@ class UserController extends Controller
     public function index(Request $request)//: Response
     {
         // $users = User::search($request->get('search', ''))
-        $users = User::orderBy(
+        $users = User::with('')->where('role', 'CUSTOMER')->orderBy(
+                $request->get('sortField', 'created_at'),
+                $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
+            )    
+            ->paginate($request->get('perPage', 5));
+
+        return Inertia::render('users/index', [
+            'status' => $request->session()->get('status'),
+            'users' => $users,
+        ]);
+    }
+
+    public function customers(Request $request)//: Response
+    {
+        // $users = User::search($request->get('search', ''))
+        $users = User::where('role', 'VENDOR')->orderBy(
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
