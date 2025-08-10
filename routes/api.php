@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,7 @@ Route::get('/user', function (Request $request) {
 Route::get('/test', function() {
     return response()->json([
         'hello' => 'world',
+        'users' => User::all(),
         'categories' => Category::all(),
         'products' => Product::search('')->get(),
         'orders' => Order::search('')->get(),
