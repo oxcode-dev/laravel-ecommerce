@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
+use App\Notifications\OrderDeleteNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -38,9 +41,12 @@ class OrderController extends Controller
 
     public function delete(Request $request, Order $order)
     {
+        $user = User::where('id', $order->user_id)->first();
+        
         OrderItem::where('order_id', $order->id)->delete();
         $order->delete();
 
+        // Notification::send($user, new OrderDeleteNotification($order));
         return redirect('/orders')->with([
             'status' => $request->session()->get('status'),
         ]);
