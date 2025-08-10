@@ -51,8 +51,6 @@ class User extends Authenticatable
 
     public function sendOrderDeleteNotification($order = null)
     {
-        // return $order->toArray();
         return $this->notify(new OrderDeleteNotification($order));
-        // return $result;
     }
 }

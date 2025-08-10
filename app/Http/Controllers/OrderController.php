@@ -30,14 +30,12 @@ class OrderController extends Controller
     public function view(Request $request, Order $order)//: Response
     {
         $order = $order::search('')->whereId($order->id)->firstOrFail();
-        // dd($order->toArray());
 
         return Inertia::render('orders/show', [
             'status' => $request->session()->get('status'),
             'order' => $order,
         ]);
     }
-
 
     public function delete(Request $request, Order $order)
     {
