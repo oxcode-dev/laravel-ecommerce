@@ -29,7 +29,9 @@ class ProductController extends Controller
 
     public function view(Request $request, Product $product)//: Response
     {
-        $product = $product::search('')->whereId($product->id)->firstOrFail();
+        $product = $product::with('category', 'user', 'reviews.user')->whereId($product->id)->firstOrFail();
+
+        dd($product->toArray());
 
         return Inertia::render('products/show', [
             'status' => $request->session()->get('status'),
