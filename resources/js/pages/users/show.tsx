@@ -37,7 +37,7 @@ export default function Dashboard() {
             <Head title="Users" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
-                { authUser.role !== 'ADMIN' ? 
+                { authUser.role === 'ADMIN' ? 
                     <div className="flex justify-end px-4 space-x-3">
                         <a onClick={ () => handleDeleteUser() } href="#" className="bg-red-600 text-white rounded-lg px-4 py-2">
                             Delete
