@@ -12,7 +12,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Dashboard() {
     // @ts-ignore
-    const user: User = usePage().props.user
+    const authUser: User = usePage().props.auth?.user;
+    // @ts-ignore
+    const user: User = usePage().props.user;
     const products: ProductItem[] = user?.products
     const orders: OrderItem[] = user?.orders
     const addresses: AddressItem[] = user?.addresses
@@ -35,11 +37,14 @@ export default function Dashboard() {
             <Head title="Users" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
-                <div className="flex justify-end px-4 space-x-3">
-                    <a onClick={ () => handleDeleteUser() } href="#" className="bg-red-600 text-white rounded-lg px-4 py-2">
-                        Delete
-                    </a>    
-                </div>
+                { authUser.role !== 'ADMIN' ? 
+                    <div className="flex justify-end px-4 space-x-3">
+                        <a onClick={ () => handleDeleteUser() } href="#" className="bg-red-600 text-white rounded-lg px-4 py-2">
+                            Delete
+                        </a>    
+                    </div>
+                    : null
+                }
                 <div className="bg-transparent shadow-sm overflow-hidden sm:rounded-lg my-4">
                     <div className="px-4 py-5 sm:p-0">
                         <dl className="sm:divide-y sm:divide-gray-200 capitalize text-gray-900 dark:text-gray-100">
@@ -68,6 +73,7 @@ export default function Dashboard() {
                     </div>
                 </div>
 
+                { user?.role === 'VENDOR' && products.length > 0 ? <p className='text-xl font-semibold'>Products</p> : null }
                 { user?.role === 'VENDOR' && products.length > 0 ? 
                     <div className='py-4'>
                         <table className="min-w-full bg-transparent">
@@ -101,6 +107,7 @@ export default function Dashboard() {
                     : null
                 }
 
+                { user?.role === 'CUSTOMER' && orders.length > 0 ? <p className='text-xl font-semibold'>Orders</p> : null }
                 { user?.role === 'CUSTOMER' && orders.length > 0 ? 
                     <div className='py-4'>
                         <table className="min-w-full bg-transparent">
@@ -134,19 +141,41 @@ export default function Dashboard() {
                     : null
                 }
 
+                { user?.role === 'CUSTOMER' && addresses.length > 0 ? <p className='text-xl font-semibold'>Addresses</p> : null }
+
                 { user?.role === 'CUSTOMER' && addresses.length > 0 ? 
-                    <div className='py-4'>
+                    <div className='py-4 flex flex-wrap md:flex-nowrap'>
                         {
                             addresses.map((address) => (
-                                <div className="bg-transparent p-3 border mr-2 rounded-md h-48 space-y-2">
-                                <h2 className="text-sm dark:text-white text-gray-600 font-semibold mb-2">Shipping Details</h2>
-                                <p className="text-xs capitalize">{ address?.street || 'N/A' }</p>
-                                <p className="text-xs capitalize">{ address?.phone || 'N/A' }</p>
-                                <p className="text-xs capitalize">{ address?.postal_code || 'N/A' }</p>
-                                <p className="text-xs capitalize">{ address?.city || 'N/A' }</p>
-                                <p className="text-xs capitalize">{ address?.state || 'N/A' }</p>
-                                <p className="text-xs capitalize">{ address?.country || 'N/A' }</p>
-                            </div>
+                                <div className="w-full md:w-1/3 bg-transparent p-3 border mr-2 rounded-md h-48 space-y-2">
+                                    <div className='space-y-1'>
+                                        <h2 className="text-sm dark:text-white text-gray-600 font-semibold mb-2">Shipping Details</h2>
+                                        <p className="text-xs capitalize space-x-1.5">
+                                            <span>Street:</span>
+                                            <span className='font-medium'>{ address?.street || 'N/A' }</span>
+                                        </p>
+                                        <p className="text-xs capitalize space-x-1.5">
+                                            <span>Phone:</span>
+                                            <span className='font-medium'>{ user?.phone || 'N/A' }</span>
+                                        </p>
+                                        <p className="text-xs capitalize space-x-1.5">
+                                            <span>Postal Code:</span>
+                                            <span className='font-medium'>{ address?.postal_code || 'N/A' }</span>
+                                        </p>
+                                        <p className="text-xs capitalize space-x-1.5">
+                                            <span>City:</span>
+                                            <span className='font-medium'>{ address?.city || 'N/A' }</span>
+                                        </p>
+                                        <p className="text-xs capitalize space-x-1.5">
+                                            <span>State:</span>
+                                            <span className='font-medium'>{ address?.state || 'N/A' }</span>
+                                        </p>
+                                        <p className="text-xs capitalize space-x-1.5">
+                                            <span>Country:</span>
+                                            <span className='font-medium'>{ address?.country || 'N/A' }</span>
+                                        </p>
+                                    </div>
+                                </div>
                             ))
                         }
                     </div>
