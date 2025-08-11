@@ -57,6 +57,17 @@ export interface CategoryItem {
     created_at: string | null;
 }
 
+export interface ReviewItem {
+    id: string;
+    product_id: string;
+    comment: string;
+    user_id: string;
+    rating: number;
+    created_at: string | null;
+    user: User;
+    product: ProductItem;
+}
+
 export interface CategoryType {
     prev_page_url: string;
     next_page_url: string;
@@ -71,6 +82,7 @@ export interface ProductItem {
     slug: string;
     category: CategoryItem;
     user: User | null;
+    reviews: ReviewItem[],
     description: string | null;
     summary: string | null;
     images: string | null;

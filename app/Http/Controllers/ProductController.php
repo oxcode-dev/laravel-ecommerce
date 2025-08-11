@@ -31,7 +31,7 @@ class ProductController extends Controller
     {
         $product = $product::with('category', 'user', 'reviews.user')->whereId($product->id)->firstOrFail();
 
-        dd($product->toArray());
+        // dd($product->toArray());
 
         return Inertia::render('products/show', [
             'status' => $request->session()->get('status'),

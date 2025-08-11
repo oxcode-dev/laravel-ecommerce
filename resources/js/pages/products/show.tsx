@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { ProductItem, type BreadcrumbItem } from '@/types';
+import { ProductItem, type BreadcrumbItem, ReviewItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
@@ -13,6 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Dashboard() {
     // @ts-ignore
     const product: ProductItem = usePage().props.product
+    const reviews: ReviewItem[] = product?.reviews
 
     const form = useForm({});
 
@@ -91,6 +92,28 @@ export default function Dashboard() {
                         </dl>
     {/* images: string | null; */}
                     </div>
+                </div>
+
+                <div className='py-4 flex flex-wrap md:flex-nowrap'>
+                    { reviews.map((review) => (
+                        <div key={review.id} className="w-full md:w-1/3 bg-transparent p-3 border mr-2 rounded-md min-h-48 space-y-2">
+                            <div className='space-y-1'>
+                                <h2 className="text-sm dark:text-white text-gray-600 font-semibold mb-2">{ review?.user?.name }</h2>
+                                <p className="text-xs capitalize space-x-1.5">
+                                    <span>Rating:</span>
+                                    <span className='font-medium'>{ review?.rating || 'N/A' }</span>
+                                </p>
+                                <p className="text-xs capitalize space-x-1.5">
+                                    <span>Comment:</span>
+                                    <p className='font-medium'>{ review?.comment || 'N/A' }</p>
+                                </p>
+                                <p className="text-xs capitalize space-x-1.5">
+                                    <span>Date:</span>
+                                    <p className='font-medium'>{ review?.created_at || 'N/A' }</p>
+                                </p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
