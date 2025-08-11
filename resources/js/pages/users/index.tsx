@@ -3,7 +3,6 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, User as UserItem, UserType } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
-import { Tab, TabList, TabGroup } from '@headlessui/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -17,19 +16,21 @@ export default function Dashboard() {
     const users: UserType = usePage().props.users
     const usersData: UserItem[] = users?.data || {}
 
+    const page_type = usePage().props.page_type
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Users - Vendors" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
-                <div className="flex flex-wrap md:flex-nowrap justify-between px-4">
-
+                <div className="flex flex-wrap md:flex-nowrap justify-between py-2">
                     <div>
                         <nav className='inline-flex space-x-4'>
-                            <Link href='/users'>
+                            <Link href='/users' className={`${page_type === 'vendor' ? 'border-b-4' : ''} p-2 hover:border-b-4 border-gray-700 dark:border-white`}>
                                 Vendors
                             </Link>
-                            <Link href='/users/customers'>
+                            <Link href='/users/customers' className={`${page_type === 'customer' ? 'border-b-4' : ''} p-2 hover:border-b-4 border-gray-700 dark:border-white`}>
+
                                 Customers
                             </Link>
                         </nav>
@@ -46,6 +47,8 @@ export default function Dashboard() {
                                 <tr className="bg-gray-500 text-white border-b">
                                     <th className="py-3 px-4 text-left">User</th>
                                     <th className="py-3 px-4 text-left">Email</th>
+                                    { page_type === 'vendor' ? <th className="py-3 px-4 text-left">Products</th> : null }
+                                    { page_type === 'customer' ? <th className="py-3 px-4 text-left">Orders</th> : null }
                                     <th className="py-3 px-4 text-left">Date</th>
                                     <th className="py-3 px-4 text-left">Action</th>
                                 </tr>
@@ -56,6 +59,8 @@ export default function Dashboard() {
                                         <tr key={key} className="border-b border-blue-gray-200 capitalize">
                                             <td className="py-3 px-4">{ user?.name || '' }</td>
                                             <td className="py-3 px-4 lowercase">{ user?.email || '' }</td>
+                                            { page_type === 'vendor' ? <th className="py-3 px-4 text-left">{ user.products.length}</th> : null }
+                                            { page_type === 'customer' ? <th className="py-3 px-4 text-left">{ user.orders.length}</th> : null }
                                             <td className="py-3 px-4">{ user?.created_at }</td>
                                             <td className="py-3 px-4">
                                                 <Link href={`/users/${user.id}`} className="font-medium text-blue-600 hover:text-blue-800">

@@ -20,6 +20,7 @@ class UserController extends Controller
         return Inertia::render('users/index', [
             'status' => $request->session()->get('status'),
             'users' => $users,
+            'page_type' => 'vendor',
         ]);
     }
 
@@ -35,6 +36,7 @@ class UserController extends Controller
         return Inertia::render('users/index', [
             'status' => $request->session()->get('status'),
             'users' => $users,
+            'page_type' => 'customer',
         ]);
     }
 
