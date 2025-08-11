@@ -49,7 +49,7 @@ export default function Dashboard() {
                                     <th className="py-3 px-4 text-left">Email</th>
                                     { page_type === 'vendor' ? <th className="py-3 px-4 text-left">Products</th> : null }
                                     { page_type === 'customer' ? <th className="py-3 px-4 text-left">Orders</th> : null }
-                                    <th className="py-3 px-4 text-left">Date</th>
+                                    <th className="py-3 px-4 text-left">Phone</th>
                                     <th className="py-3 px-4 text-left">Action</th>
                                 </tr>
                             </thead>
@@ -59,9 +59,9 @@ export default function Dashboard() {
                                         <tr key={key} className="border-b border-blue-gray-200 capitalize">
                                             <td className="py-3 px-4">{ user?.name || '' }</td>
                                             <td className="py-3 px-4 lowercase">{ user?.email || '' }</td>
-                                            { page_type === 'vendor' ? <th className="py-3 px-4 text-left">{ user.products.length}</th> : null }
-                                            { page_type === 'customer' ? <th className="py-3 px-4 text-left">{ user.orders.length}</th> : null }
-                                            <td className="py-3 px-4">{ user?.created_at }</td>
+                                            { page_type === 'vendor' ? <th className="py-3 px-4 text-left">{ user?.products.length}</th> : null }
+                                            { page_type === 'customer' ? <th className="py-3 px-4 text-left">{ user?.orders.length}</th> : null }
+                                            <td className="py-3 px-4">{ user?.phone }</td>
                                             <td className="py-3 px-4">
                                                 <Link href={`/users/${user.id}`} className="font-medium text-blue-600 hover:text-blue-800">
                                                     View
