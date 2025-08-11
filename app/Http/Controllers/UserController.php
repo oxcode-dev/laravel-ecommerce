@@ -42,9 +42,9 @@ class UserController extends Controller
 
     public function view(Request $request, User $user)//: Response
     {
-        $user = $user::search('')->whereId($user->id)->firstOrFail();
+        $user = $user::with('products.category')->whereId($user->id)->firstOrFail();
 
-        dd($user->toArray());
+        // dd($user->toArray());
 
         return Inertia::render('users/show', [
             'status' => $request->session()->get('status'),
