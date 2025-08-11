@@ -69,7 +69,7 @@ export default function Dashboard() {
                 </div>
 
                 { user?.role === 'VENDOR' && products.length > 0 ? 
-                    <div>
+                    <div className='py-4'>
                         <table className="min-w-full bg-transparent">
                             <thead>
                                 <tr className="bg-gray-500 text-white border-b">
@@ -102,11 +102,10 @@ export default function Dashboard() {
                 }
 
                 { user?.role === 'CUSTOMER' && orders.length > 0 ? 
-                    <div>
+                    <div className='py-4'>
                         <table className="min-w-full bg-transparent">
                             <thead>
                                 <tr className="bg-gray-500 text-white border-b">
-                                    <th className="py-3 px-4 text-left">User</th>
                                     <th className="py-3 px-4 text-left">Date</th>
                                     <th className="py-3 px-4 text-left">Total($)</th>
                                     <th className="py-3 px-4 text-left">Status</th>
@@ -117,7 +116,6 @@ export default function Dashboard() {
                                 {
                                     orders.map((order, key) => (
                                         <tr key={key} className="border-b border-blue-gray-200 capitalize">
-                                            <td className="py-3 px-4">{ order?.user?.name || '' }</td>
                                             <td className="py-3 px-4">{ order?.created_at }</td>
                                             <td className="py-3 px-4 capitalize">{ order?.total_amount || 0 }</td>
                                             <td className="py-3 px-4">{ order?.status }</td>
@@ -132,6 +130,25 @@ export default function Dashboard() {
                                 
                             </tbody>
                         </table>
+                    </div>
+                    : null
+                }
+
+                { user?.role === 'CUSTOMER' && addresses.length > 0 ? 
+                    <div className='py-4'>
+                        {
+                            addresses.map((address) => (
+                                <div className="bg-transparent p-3 border mr-2 rounded-md h-48 space-y-2">
+                                <h2 className="text-sm dark:text-white text-gray-600 font-semibold mb-2">Shipping Details</h2>
+                                <p className="text-xs capitalize">{ address?.street || 'N/A' }</p>
+                                <p className="text-xs capitalize">{ address?.phone || 'N/A' }</p>
+                                <p className="text-xs capitalize">{ address?.postal_code || 'N/A' }</p>
+                                <p className="text-xs capitalize">{ address?.city || 'N/A' }</p>
+                                <p className="text-xs capitalize">{ address?.state || 'N/A' }</p>
+                                <p className="text-xs capitalize">{ address?.country || 'N/A' }</p>
+                            </div>
+                            ))
+                        }
                     </div>
                     : null
                 }

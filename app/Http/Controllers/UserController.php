@@ -42,7 +42,7 @@ class UserController extends Controller
 
     public function view(Request $request, User $user)//: Response
     {
-        $user = $user::with('products.category')->whereId($user->id)->firstOrFail();
+        $user = $user::with('products.category', 'orders', 'addresses')->whereId($user->id)->firstOrFail();
 
         // dd($user->toArray());
 
