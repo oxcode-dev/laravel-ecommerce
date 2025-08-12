@@ -32,8 +32,6 @@ class ProductController extends Controller
                 ->paginate($request->get('perPage', 5));
         }
 
-        
-
         // dd($products->toArray());
 
         return Inertia::render('products/index', [
