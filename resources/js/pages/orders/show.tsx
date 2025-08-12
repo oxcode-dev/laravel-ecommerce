@@ -179,7 +179,7 @@ export default function Dashboard() {
                         <div className="bg-transparent p-3 border mr-2 rounded-md h-48 space-y-2">
                             <h2 className="text-sm dark:text-white text-gray-600 font-semibold mb-2">Shipping Details</h2>
                             <p className="text-xs capitalize">{ order?.address?.street || 'N/A' }</p>
-                            <p className="text-xs capitalize">{ order?.address?.phone || 'N/A' }</p>
+                            <p className="text-xs capitalize">{ order?.user?.phone || 'N/A' }</p>
                             <p className="text-xs capitalize">{ order?.address?.postal_code || 'N/A' }</p>
                             <p className="text-xs capitalize">{ order?.address?.city || 'N/A' }</p>
                             <p className="text-xs capitalize">{ order?.address?.state || 'N/A' }</p>
