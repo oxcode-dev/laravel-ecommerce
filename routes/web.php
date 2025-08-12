@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -40,7 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
     });
 
-    Route::prefix('users')->group(function() {
+    Route::middleware([])->prefix('users')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::get('/vendors', [UserController::class, 'vendors'])->name('users.vendors');
         Route::get('/customers', [UserController::class, 'customers'])->name('users.customers');
