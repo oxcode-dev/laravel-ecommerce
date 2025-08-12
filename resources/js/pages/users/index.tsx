@@ -26,7 +26,10 @@ export default function Dashboard() {
                 <div className="flex flex-wrap md:flex-nowrap justify-between py-2">
                     <div>
                         <nav className='inline-flex space-x-4'>
-                            <Link href='/users' className={`${page_type === 'vendor' ? 'border-b-4' : ''} p-2 hover:border-b-4 border-gray-700 dark:border-white`}>
+                            <Link href='/users' className={`${page_type === 'admin' ? 'border-b-4' : ''} p-2 hover:border-b-4 border-gray-700 dark:border-white`}>
+                                Admin
+                            </Link>
+                            <Link href='/users/vendors' className={`${page_type === 'vendor' ? 'border-b-4' : ''} p-2 hover:border-b-4 border-gray-700 dark:border-white`}>
                                 Vendors
                             </Link>
                             <Link href='/users/customers' className={`${page_type === 'customer' ? 'border-b-4' : ''} p-2 hover:border-b-4 border-gray-700 dark:border-white`}>
