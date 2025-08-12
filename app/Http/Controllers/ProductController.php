@@ -12,12 +12,27 @@ class ProductController extends Controller
 {
     public function index(Request $request)//: Response
     {
-        $products = Product::search($request->get('search', ''))
-            ->orderBy(
-                $request->get('sortField', 'created_at'),
-                $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
-            )    
-            ->paginate($request->get('perPage', 5));
+        $user = auth()->user();
+
+        if($user->role === 'VENDOR') {
+            $products = Product::search($request->get('search', ''))
+                ->where('user_id', $user->id)
+                ->orderBy(
+                    $request->get('sortField', 'created_at'),
+                    $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
+                )
+                ->paginate($request->get('perPage', 5));
+        }
+        else {
+            $products = Product::search($request->get('search', ''))
+                ->orderBy(
+                    $request->get('sortField', 'created_at'),
+                    $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
+                )    
+                ->paginate($request->get('perPage', 5));
+        }
+
+        
 
         // dd($products->toArray());
 
