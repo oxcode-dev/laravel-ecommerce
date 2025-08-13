@@ -35,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{product}', [ProductController::class, 'view'])->name('products.view');
     });
 
-    Route::prefix('orders')->group(function() {
+    Route::middleware(['admin'])->prefix('orders')->group(function() {
         Route::get('/', [OrderController::class, 'index'])->name('orders');
         Route::delete('/{order}/delete', [OrderController::class, 'delete'])->name('orders.delete');
         Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
