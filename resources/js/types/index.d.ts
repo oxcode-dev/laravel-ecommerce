@@ -112,7 +112,7 @@ export interface OrderItem {
     payment_status: string | null;
     total_amount: number | null;
     delivery_cost: number | null;
-    created_at: string;
+    created_at: string | null;
     order_items: []
 }
 
