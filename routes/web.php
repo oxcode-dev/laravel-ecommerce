@@ -41,7 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
     });
 
-    Route::middleware([])->prefix('users')->group(function() {
+    Route::middleware(['admin'])->prefix('users')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::get('/vendors', [UserController::class, 'vendors'])->name('users.vendors');
         Route::get('/customers', [UserController::class, 'customers'])->name('users.customers');
