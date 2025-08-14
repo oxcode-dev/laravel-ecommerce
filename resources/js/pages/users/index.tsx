@@ -40,9 +40,13 @@ export default function Dashboard() {
                         </nav>
                     </div>
                    
-                    <Link href="/users/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
-                        Create
-                    </Link>
+                    { page_type === 'admin' ?
+                        <Link href="/users/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
+                            Create
+                        </Link>
+                        : null
+                    }
+                    
                 </div>
                 <div className="relative min-h-[100vh] rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     
