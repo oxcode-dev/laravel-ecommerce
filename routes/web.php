@@ -43,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware(['admin'])->prefix('users')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('users');
+        Route::post('/', [UserController::class, 'store'])->name('users.store');
         Route::get('/vendors', [UserController::class, 'vendors'])->name('users.vendors');
         Route::get('/customers', [UserController::class, 'customers'])->name('users.customers');
         Route::get('/create', [UserController::class, 'create'])->name('users.create');

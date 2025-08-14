@@ -33,7 +33,7 @@ export default function Dashboard() {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('register'), {
+        post(route('users.store'), {
             onSuccess: () => {
                 alert('User Created Successfully!!!')
                 router.visit('/users')
