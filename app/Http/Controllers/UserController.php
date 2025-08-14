@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -73,6 +75,27 @@ class UserController extends Controller
         return Inertia::render('users/form', [
             'status' => $request->session()->get('status'),
         ]);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'phone' => 'sometimes|string|max:255'
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make('password'),
+            'role' => 'ADMIN',
+        ]);
+
+        // event(new Registered($user));
+
+        return redirect()->intended(route('users', absolute: false));
     }
 
     public function delete(Request $request, User $user)
