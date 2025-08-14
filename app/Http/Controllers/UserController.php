@@ -77,7 +77,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)//: RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -92,6 +92,8 @@ class UserController extends Controller
             'password' => Hash::make('password'),
             'role' => 'ADMIN',
         ]);
+
+        dd($user->fresh()->toArray());
 
         // event(new Registered($user));
 

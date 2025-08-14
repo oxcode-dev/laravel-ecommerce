@@ -85,9 +85,9 @@ export default function Dashboard() {
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="password">Password</Label>
+                                    <Label htmlFor="phone">Phone</Label>
                                     <Input
-                                        id="password"
+                                        id="phone"
                                         type="text"
                                         required
                                         tabIndex={3}
