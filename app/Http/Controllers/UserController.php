@@ -68,6 +68,13 @@ class UserController extends Controller
         ]);
     }
 
+    public function create(Request $request)//: Response
+    {
+        return Inertia::render('users/show', [
+            'status' => $request->session()->get('status'),
+        ]);
+    }
+
     public function delete(Request $request, User $user)
     {
         $user = User::where('id', $user->user_id)->first();
