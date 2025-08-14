@@ -143,7 +143,6 @@ export default function Dashboard() {
                 }
 
                 { user?.role === 'CUSTOMER' && addresses.length > 0 ? <p className='text-xl font-semibold'>Addresses</p> : null }
-
                 { user?.role === 'CUSTOMER' && addresses.length > 0 ? 
                     <div className='py-4 flex flex-wrap md:flex-nowrap'>
                         {
