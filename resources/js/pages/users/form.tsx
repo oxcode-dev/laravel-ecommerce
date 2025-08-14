@@ -12,33 +12,31 @@ import { LoaderCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Categories',
-        href: '/categories',
+        title: 'Users',
+        href: '/users',
     },
 ];
 
-type CategoryForm = {
+type RegisterForm = {
     name: string;
-    description: string;
-    id: string | null;
+    email: string;
+    phone: string;
 };
 
 export default function Dashboard() {
-    // @ts-ignore
-    const category: CategoryItem = usePage().props.category
 
-    const { data, setData, post, processing, errors, reset } = useForm<Required<CategoryForm>>({
-        name: category?.name || '',
-        description: category?.description || '',
-        id: category?.id || null,
+    const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+        name: '',
+        email: '',
+        phone: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('categories.store'), {
+        post(route('register'), {
             onSuccess: () => {
-                alert('Category Saved Successfully!!!')
-                router.visit('/categories ')
+                alert('User Created Successfully!!!')
+                router.visit('/users')
             } 
         });
     };
@@ -46,48 +44,70 @@ export default function Dashboard() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Categories" />
+            <Head title="Users" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
                 <div className="bg-transparent shadow-sm overflow-hidden sm:rounded-lg my-4">
                     <div className="px-4 py-5 w-full md:max-w-lg">
-                        <form onSubmit={submit} className="space-y-2">
-                            <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
-                                <Input
-                                    id="name"
-                                    type="text"
-                                    required
-                                    autoFocus
-                                    autoComplete="name"
-                                    value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
-                                    placeholder="category name..."
-                                />
-                                <InputError message={errors.name} />
-                            </div>
-                        
-                            <div className="grid gap-2">
-                                <Label htmlFor="description">Description</Label>
-                                <textarea
-                                    id="description"
-                                    required
-                                    v-model="form.description"
-                                    value={data.description}
-                                    onChange={(e) => setData('description', e.target.value)}
-                                    rows={6}
-                                    className="block w-full pl-2 pr-10 py-2 text-base border focus:border-gray-300 focus:outline-hidden sm:text-sm rounded-md capitalize"
-                                    placeholder="Description..."
-                                ></textarea>
-                                <InputError message={errors.description} />
+                        <form className="flex flex-col gap-6" onSubmit={submit}>
+                            <div className="grid gap-6">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">Name</Label>
+                                    <Input
+                                        id="name"
+                                        type="text"
+                                        required
+                                        autoFocus
+                                        tabIndex={1}
+                                        autoComplete="name"
+                                        value={data.name}
+                                        onChange={(e) => setData('name', e.target.value)}
+                                        disabled={processing}
+                                        placeholder="Full name"
+                                    />
+                                    <InputError message={errors.name} className="mt-2" />
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label htmlFor="email">Email address</Label>
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        required
+                                        tabIndex={2}
+                                        autoComplete="email"
+                                        value={data.email}
+                                        onChange={(e) => setData('email', e.target.value)}
+                                        disabled={processing}
+                                        placeholder="email@example.com"
+                                    />
+                                    <InputError message={errors.email} />
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <Label htmlFor="password">Password</Label>
+                                    <Input
+                                        id="password"
+                                        type="text"
+                                        required
+                                        tabIndex={3}
+                                        autoComplete="new-password"
+                                        value={data.phone}
+                                        onChange={(e) => setData('phone', e.target.value)}
+                                        disabled={processing}
+                                        placeholder="phone"
+                                    />
+                                    <InputError message={errors.phone} />
+                                </div>
+
+                                <div>
+                                    <Button type="submit" className="mt-4" disabled={processing}>
+                                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                                        Submit
+                                    </Button>
+                                </div>
                             </div>
 
-                            <div>
-                                <Button type="submit" className="mt-4" disabled={processing}>
-                                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                    Submit
-                                </Button>
-                            </div>
                         </form>
                     </div>
                 </div>
