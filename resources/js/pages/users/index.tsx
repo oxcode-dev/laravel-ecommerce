@@ -1,4 +1,5 @@
 import Pager from '@/components/Pager';
+import CreateUser from '@/components/create-user';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, User as UserItem, UserType } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
@@ -38,7 +39,8 @@ export default function Dashboard() {
                             </Link>
                         </nav>
                     </div>
-                    <Link href="/products/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
+                   
+                    <Link href="/users/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
                         Create
                     </Link>
                 </div>
