@@ -45,6 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::get('/vendors', [UserController::class, 'vendors'])->name('users.vendors');
         Route::get('/customers', [UserController::class, 'customers'])->name('users.customers');
+        Route::get('/create', [UserController::class, 'create'])->name('users.create');
         Route::delete('/{order}/delete', [UserController::class, 'delete'])->name('users.delete');
         Route::get('/{user}', [UserController::class, 'view'])->name('users.view');
     });
