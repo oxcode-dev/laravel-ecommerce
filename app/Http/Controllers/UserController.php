@@ -93,7 +93,7 @@ class UserController extends Controller
             'role' => 'ADMIN',
         ]);
 
-        dd($user->fresh()->toArray());
+        // dd($user->fresh()->toArray());
 
         // event(new Registered($user));
 
