@@ -28,7 +28,7 @@ class ConfirmAccountController extends Controller
         if (
             OtpCode::where('code', $data['otp'])
                 ->where('email', $data['email'])
-                ->where('expires_at', '>', now())
+                // ->where('expires_at', '>', now())
                 ->exists()
         ) {
             $user = User::where('email', $data['email'])->first();
@@ -40,7 +40,9 @@ class ConfirmAccountController extends Controller
 
             OtpCode::where('code', $data['otp'])->delete();
 
-            return redirect()->intended(route('login', absolute: false));
+            return redirect('/login');
+
+            // return redirect()->intended(route('login', absolute: true));
         }
 
         return back()->withErrors(
@@ -51,4 +53,31 @@ class ConfirmAccountController extends Controller
             'error'
         );
     }
+
+    public function generateOtp(Request $request)//: \Illuminate\Http\JsonResponse
+    {
+        $data = $request->validate(['email' => 'required|email']);
+
+        if (User::where('email', $data['email'])->exists()) {
+            $user = User::where('email', $data['email'])->firstOrFail();
+            $user->sendPasswordResetNotification();
+
+            return back()->with(
+                [
+                    'status' => 'success',
+                    'message' => 'email sent successfully.',
+                ],
+                'error'
+            );
+        } else {
+            return back()->withErrors(
+                [
+                    'status' => 'failed',
+                    'message' => 'email does not exist.',
+                ],
+                'error'
+            );
+        }
+    }
+
 }
