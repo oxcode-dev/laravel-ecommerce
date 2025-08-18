@@ -39,7 +39,7 @@ class ConfirmAccountController extends Controller
 
             OtpCode::where('code', $data['otp'])->delete();
 
-            return redirect()->intended(route('dashboard', absolute: false));
+            return redirect()->intended(route('login', absolute: false));
         }
     }
 }
