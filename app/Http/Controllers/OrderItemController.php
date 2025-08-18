@@ -32,11 +32,10 @@ class OrderItemController extends Controller
     {
         $orderItem = $orderItem::whereId($orderItem['id'])->with('product', 'order.user', 'order.address')->first();
 
-        dd($orderItem->toArray());
+        // dd($orderItem->toArray());
 
-        return Inertia::render('order-items/index', [
-            'status' => $request->session()->get('status'),
-            'orderItems' => $orderItems,
+        return Inertia::render('order-items/show', [
+            'order_item' => $orderItem,
         ]);
     }
 }

@@ -13,7 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Page() {
     // @ts-ignore
-    const order_item: OrderItemsType = usePage().props.order
+    const order_item: OrderItemsType = usePage().props.order_item
     const order: OrderItem = order_item?.order
     // const orderItems: OrderItemsType[] = order?.order_items
 
@@ -94,7 +94,7 @@ export default function Page() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr key={order_item.id}>
+                                        <tr>
                                             <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm">
                                                 <div className="flex items-center space-x-4 sm:space-x-6">
                                                     <div className="ml-3 flex flex-col">
