@@ -1,7 +1,7 @@
 import Pager from '@/components/Pager';
 import { formatDate } from '@/helper';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem, OrderType, OrderItem } from '@/types';
+import { type BreadcrumbItem, OrderItemsType, OrderItemsPropType } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react'
 
@@ -14,8 +14,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Dashboard() {
     // @ts-ignore
-    const orders: OrderType = usePage().props.orders
-    const ordersData: OrderItem[] = orders?.data || {}
+    const orderItems: OrderItemsPropType = usePage().props.orderItems
+    const orderItemsData: OrderItemsType[] = orderItems?.data || {}
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -42,7 +42,7 @@ export default function Dashboard() {
                         </thead>
                         <tbody className="">
                             {
-                                ordersData.map((order, key) => (
+                                orderItemsData.map((items, key) => (
                                     <tr key={key} className="border-b border-blue-gray-200 capitalize">
                                         <td className="py-3 px-4">{ order?.user?.name || '' }</td>
                                         <td className="py-3 px-4">{ formatDate(order?.created_at || null) }</td>
@@ -63,10 +63,10 @@ export default function Dashboard() {
 
                 <div className="py-6">
                     <Pager 
-                        prev_page_url={orders?.prev_page_url}
-                        next_page_url={orders?.next_page_url}
-                        last_page={orders?.last_page}
-                        current_page={orders?.current_page}
+                        prev_page_url={orderItems?.prev_page_url}
+                        next_page_url={orderItems?.next_page_url}
+                        last_page={orderItems?.last_page}
+                        current_page={orderItems?.current_page}
                     />
                 </div>
             </div>

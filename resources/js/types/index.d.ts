@@ -147,6 +147,14 @@ export interface OrderItemsType {
     product: ProductItem;
 }
 
+export interface OrderItemsPropType {
+    prev_page_url: string;
+    next_page_url: string;
+    last_page: string;
+    current_page: string;
+    data: OrderItemsType[];
+}
+
 export interface UserType {
     prev_page_url: string;
     next_page_url: string;
