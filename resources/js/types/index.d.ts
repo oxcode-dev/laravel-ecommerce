@@ -145,6 +145,7 @@ export interface OrderItemsType {
     unit_price: number;
     created_at: string;
     product: ProductItem;
+    order: OrderItem;
 }
 
 export interface OrderItemsPropType {

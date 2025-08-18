@@ -6,39 +6,40 @@ import { Link } from '@inertiajs/react'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Orders',
-        href: '/orders',
+        title: 'Order Items',
+        href: '/order-items',
     },
 ];
 
-export default function Dashboard() {
+export default function Page() {
     // @ts-ignore
-    const order: OrderItem = usePage().props.order
-    const orderItems: OrderItemsType[] = order?.order_items
+    const order_item: OrderItemsType = usePage().props.order
+    const order: OrderItem = order_item?.order
+    // const orderItems: OrderItemsType[] = order?.order_items
 
     const form = useForm({});
 
-    const handleDeleteOrder = () => {
-        if(confirm('Are you sure, you want to delete this order?')) {
-            form.delete(route('orders.delete', { order: order.id }), {
-                onSuccess: () => {
-                    alert('Order deleted Successfully!!!')
-                    router.visit('/orders')
-                } 
-            });
-        }
-    }
+    // const handleDeleteOrder = () => {
+    //     if(confirm('Are you sure, you want to delete this order?')) {
+    //         form.delete(route('orders.delete', { order: order.id }), {
+    //             onSuccess: () => {
+    //                 alert('Order deleted Successfully!!!')
+    //                 router.visit('/orders')
+    //             } 
+    //         });
+    //     }
+    // }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Orders" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
-                <div className="flex justify-end px-4 space-x-3">
+                {/* <div className="flex justify-end px-4 space-x-3">
                     <a onClick={ () => handleDeleteOrder() } href="#" className="bg-red-600 text-white rounded-lg px-4 py-2">
                         Delete
                     </a>    
-                </div>
+                </div> */}
                 <div className="bg-transparent shadow-sm overflow-hidden sm:rounded-lg my-4">
                     <div className="px-4 py-5 sm:p-0">
                         <dl className="sm:divide-y sm:divide-gray-200 capitalize text-gray-900 dark:text-gray-100">
@@ -93,87 +94,38 @@ export default function Dashboard() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            orderItems.map((item) => (
-                                                <tr key={item.id}>
-                                                    <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm">
-                                                        <div className="flex items-center space-x-4 sm:space-x-6">
-                                                            <div className="ml-3 flex flex-col">
-                                                                <Link className="text-gray-700 whitespace-no-wrap text-sm ms:text-lg" href={`/products/${item?.product_id}`}>
-                                                                    { item?.product?.title }
-                                                                </Link>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
-                                                        <p className="text-gray-900 whitespace-no-wrap">
-                                                            { item?.unit_price || 0 }
-                                                        </p>
-                                                    </td>
-                                                    <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm text-center">
-                                                        <div className="inline-flex space-x-6">
-                                                            <p className="text-lg">
-                                                                { item?.quantity || 0 }
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
-                                                        <p className="text-gray-900 whitespace-no-wrap">
-                                                            { item?.unit_price * item?.quantity }
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        }
+                                        <tr key={order_item.id}>
+                                            <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm">
+                                                <div className="flex items-center space-x-4 sm:space-x-6">
+                                                    <div className="ml-3 flex flex-col">
+                                                        <Link className="text-gray-700 whitespace-no-wrap text-sm ms:text-lg" href={`/products/${order_item?.product_id}`}>
+                                                            { order_item?.product?.title }
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
+                                                <p className="text-gray-900 whitespace-no-wrap">
+                                                    { order_item?.unit_price || 0 }
+                                                </p>
+                                            </td>
+                                            <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm text-center">
+                                                <div className="inline-flex space-x-6">
+                                                    <p className="text-lg">
+                                                        { order_item?.quantity || 0 }
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
+                                                <p className="text-gray-900 whitespace-no-wrap">
+                                                    { order_item?.unit_price * order_item?.quantity }
+                                                </p>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div className="sm:hidden">
-                                <div className="flex items-start space-x-4 border-t py-4 px-2">
-                                    {
-                                        orderItems.map((item) => (
-                                            <div key={item.id} className="ml-3 w-full relative">
-                                                <Link href={`/products/${item?.product_id}`} className="text-gray-700 whitespace-no-wrap font-medium text-base">
-                                                    { item?.product?.title }
-                                                </Link>
-                                            
-                                                <p className="text-gray-500 whitespace-no-wrap">$ { item?.unit_price || 0 }</p>
-                                                <div className="space-x-2 flex items-center w-full">
-                                                    <div className="flex space-x-3 items-center text-sm text-gray-500">
-                                                        <span>qty: </span>
-                                                        <span>{ item?.quantity || 0 }</span>
-                                                    </div>
-                                                </div>
-                                                <div className="absolute bottom-1 right-0">
-                                                    <p className="text-gray-900 whitespace-no-wrap font-semibold text-xl">
-                                                        $ { item?.unit_price * item?.quantity }
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-
-                            <div className="flex justify-end py-8">
-                                <div className="">
-                                    <div className="py-2 flex justify-end items-center space-x-4 text-gray-500">
-                                        <h6 className="font-medium text-sm">Subtotal</h6>
-                                        <h6 className="font-medium text-xl">$ {order?.total_amount || 0}</h6>
-                                    </div>
-                                    <div className="py-2 flex justify-end items-center space-x-4 text-gray-500">
-                                        <h6 className="font-medium text-sm">Shipping cost</h6>
-                                        <h6 className="font-medium text-xl">$ {order.delivery_cost || 0}</h6>
-                                    </div>
-                                    <div className="py-2 flex justify-end items-end space-x-3">
-                                        <h3 className="uppercase font-semibold text-lg">Total</h3>
-                                        <h1 className="uppercase font-bold text-4xl">
-                                            $ {(order?.total_amount || 0) + (order?.delivery_cost || 0) }
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div className="w-full md:w-1/3 md:pl-4 space-y-3">

@@ -30,6 +30,13 @@ class OrderItemController extends Controller
 
     public function view (OrderItem $orderItem) 
     {
+        $orderItem = $orderItem::whereId($orderItem['id'])->with('product', 'order.user', 'order.address')->first();
+
         dd($orderItem->toArray());
+
+        return Inertia::render('order-items/index', [
+            'status' => $request->session()->get('status'),
+            'orderItems' => $orderItems,
+        ]);
     }
 }

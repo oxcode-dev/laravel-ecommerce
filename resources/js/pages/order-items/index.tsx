@@ -7,19 +7,19 @@ import { Link } from '@inertiajs/react'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Orders',
-        href: '/orders',
+        title: 'Order Items',
+        href: '/order-items',
     },
 ];
 
-export default function Dashboard() {
+export default function Page() {
     // @ts-ignore
     const orderItems: OrderItemsPropType = usePage().props.orderItems
     const orderItemsData: OrderItemsType[] = orderItems?.data || {}
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Orders" />
+            <Head title="Order Items" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div className="flex justify-end px-4">
