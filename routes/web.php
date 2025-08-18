@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -41,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
     });
 
+    Route::get('/confirm-account', [ConfirmAccountController::class, 'index'])->name('users');
     Route::middleware(['admin'])->prefix('users')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::post('/', [UserController::class, 'store'])->name('users.store');
