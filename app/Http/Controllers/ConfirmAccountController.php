@@ -43,12 +43,12 @@ class ConfirmAccountController extends Controller
             return redirect()->intended(route('login', absolute: false));
         }
 
-        return back()->with(
+        return back()->withErrors(
             [
                 'status' => 'failed',
                 'message' => 'this otp does not exist',
             ],
-            404
+            'error'
         );
     }
 }

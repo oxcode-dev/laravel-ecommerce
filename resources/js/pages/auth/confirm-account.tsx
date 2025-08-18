@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
+import ErrorPage from '@/components/errors';
 
 type ConfirmAccountForm = {
     otp: string;
@@ -23,6 +24,8 @@ export default function ConfirmAccount() {
         // password_confirmation: '',
     });
 
+    const serverError = usePage().props.errors?.error
+    
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('confirm_account'), {
@@ -35,6 +38,14 @@ export default function ConfirmAccount() {
             <Head title="Confirm Your Account" />
 
             <form onSubmit={submit}>
+                {
+                    serverError?.message && (
+                        <div className='text-red-600 py-4 capitalize font-medium'>
+                            { serverError?.message }
+                        </div>
+                    )
+                }
+                
                 <div className="grid gap-6">
                     <div className="grid gap-2">
                         <Label htmlFor="email">Email</Label>
