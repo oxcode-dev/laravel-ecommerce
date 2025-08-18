@@ -33,23 +33,23 @@ export default function Dashboard() {
                     <table className="min-w-full bg-transparent">
                         <thead>
                             <tr className="bg-gray-500 text-white border-b">
-                                <th className="py-3 px-4 text-left">User</th>
+                                <th className="py-3 px-4 text-left">Product</th>
+                                <th className="py-3 px-4 text-left">Quantity</th>
+                                <th className="py-3 px-4 text-left">Unit Price($)</th>
                                 <th className="py-3 px-4 text-left">Date</th>
-                                <th className="py-3 px-4 text-left">Total($)</th>
-                                <th className="py-3 px-4 text-left">Status</th>
                                 <th className="py-3 px-4 text-left">Action</th>
                             </tr>
                         </thead>
                         <tbody className="">
                             {
-                                orderItemsData.map((items, key) => (
+                                orderItemsData.map((item, key) => (
                                     <tr key={key} className="border-b border-blue-gray-200 capitalize">
-                                        <td className="py-3 px-4">{ order?.user?.name || '' }</td>
-                                        <td className="py-3 px-4">{ formatDate(order?.created_at || null) }</td>
-                                        <td className="py-3 px-4 capitalize">{ order?.total_amount || 0 }</td>
-                                        <td className="py-3 px-4">{ order?.status }</td>
+                                        <td className="py-3 px-4">{ item?.product?.title || '' }</td>
+                                        <td className="py-3 px-4 capitalize">{ item?.quantity || 0 }</td>
+                                        <td className="py-3 px-4">{ item?.unit_price }</td>
+                                        <td className="py-3 px-4">{ formatDate(item?.created_at || null) }</td>
                                         <td className="py-3 px-4">
-                                            <Link href={`/orders/${order.id}`} className="font-medium text-blue-600 hover:text-blue-800">
+                                            <Link href={`/order-items/${item.id}`} className="font-medium text-blue-600 hover:text-blue-800">
                                                 View
                                             </Link>
                                         </td>

@@ -27,4 +27,9 @@ class OrderItemController extends Controller
             'orderItems' => $orderItems,
         ]);
     }
+
+    public function view (OrderItem $orderItem) 
+    {
+        dd($orderItem->toArray());
+    }
 }

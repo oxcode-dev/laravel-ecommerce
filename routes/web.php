@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('order-items')->group(function() {
         Route::get('/', [OrderItemController::class, 'index'])->name('orderItems');
+        Route::get('/{orderItem}', [OrderItemController::class, 'view'])->name('orderItems.view');
     });
 
     Route::middleware(['admin'])->prefix('orders')->group(function() {
