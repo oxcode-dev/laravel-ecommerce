@@ -37,7 +37,7 @@ class NewUserNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('Dear' . $this->user . ',')
+            ->line('Dear' . $this->user['name'] . ',')
             ->line('Welcome on board as a new admin user.')
             ->line('Your job is to help manage the back office.')
             ->action('Complete Your Registration', url('/'))
