@@ -96,7 +96,9 @@ class UserController extends Controller
 
         // dd($user->fresh()->toArray());
         $user->fresh();
-        $user->notify(new NewUserNotification($user));
+
+        $user->sendNewUserNotification();
+        // $user->notify(new NewUserNotification($user));
 
         return redirect()->intended(route('users', absolute: false));
     }
