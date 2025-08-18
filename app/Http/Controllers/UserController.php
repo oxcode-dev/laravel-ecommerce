@@ -94,6 +94,8 @@ class UserController extends Controller
             'role' => 'ADMIN',
         ]);
 
+        $user->fresh();
+
         $user->sendNewUserNotification();
 
         return redirect()->intended(route('users', absolute: false));

@@ -104,7 +104,7 @@ class User extends Authenticatable
 
         $this['otp'] = $result;
 
-        $this->notify(new NewUserNotification($result));
+        $this->notify(new NewUserNotification($this));
 
         OtpCode::where('email', $this->email)->delete();
 
