@@ -12,7 +12,7 @@ class ConfirmAccountController extends Controller
     public function index (Request $request)
     {
         return Inertia::render('auth/confirm-account', [
-            'status' => $request->session()->get('status'),
+            // 'status' => $request->session()->get('status'),
         ]);
     }
 

@@ -42,7 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
     });
 
-    Route::get('/confirm-account', [ConfirmAccountController::class, 'index'])->name('users');
+    Route::get('/confirm-account', [ConfirmAccountController::class, 'index'])->name('confirm_account');
+
     Route::middleware(['admin'])->prefix('users')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::post('/', [UserController::class, 'store'])->name('users.store');

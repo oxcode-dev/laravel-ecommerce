@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OtpCode extends Model
 {
-    protected $table = 'otpcodes';
+    protected $table = 'otp_codes';
 
     protected $fillable = [
         'code',
