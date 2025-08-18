@@ -95,8 +95,7 @@ class UserController extends Controller
 
         // dd($user->fresh()->toArray());
 
-        // event(new Registered($user));
-
+        
         return redirect()->intended(route('users', absolute: false));
     }
 
