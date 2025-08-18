@@ -40,6 +40,7 @@ class NewUserNotification extends Notification
             ->line('Dear' . $this->user['name'] . ',')
             ->line('Welcome on board as a new admin user.')
             ->line('Your job is to help manage the back office.')
+            ->line('Here is your OTP: '.$this->user['otp'])
             ->action('Complete Your Registration', url('/'))
             ->line('Thank you for using our application!');
     }
