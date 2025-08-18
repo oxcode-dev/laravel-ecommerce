@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 
 type ConfirmAccountForm = {
-    token: string;
+    otp: string;
     email: string;
     password: string;
     // password_confirmation: string;
@@ -17,7 +17,7 @@ type ConfirmAccountForm = {
 
 export default function ConfirmAccount() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<ConfirmAccountForm>>({
-        token: '',
+        otp: '',
         email: '',
         password: '',
         // password_confirmation: '',
@@ -25,7 +25,7 @@ export default function ConfirmAccount() {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('password.store'), {
+        post(route('confirm_account'), {
             onFinish: () => reset('password'),
         });
     };
@@ -43,6 +43,7 @@ export default function ConfirmAccount() {
                             type="email"
                             name="email"
                             autoComplete="email"
+                            autoFocus
                             value={data.email}
                             className="mt-1 block w-full"
                             onChange={(e) => setData('email', e.target.value)}
@@ -51,17 +52,17 @@ export default function ConfirmAccount() {
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="token">Email</Label>
+                        <Label htmlFor="otp">OTP Token</Label>
                         <Input
-                            id="token"
+                            id="otp"
                             type="text"
-                            name="token"
-                            autoComplete="token"
-                            value={data.email}
+                            name="otp"
+                            autoComplete="otp"
+                            value={data.otp}
                             className="mt-1 block w-full"
-                            onChange={(e) => setData('token', e.target.value)}
+                            onChange={(e) => setData('otp', e.target.value)}
                         />
-                        <InputError message={errors.token} className="mt-2" />
+                        <InputError message={errors.otp} className="mt-2" />
                     </div>
 
                     <div className="grid gap-2">
@@ -73,7 +74,6 @@ export default function ConfirmAccount() {
                             autoComplete="new-password"
                             value={data.password}
                             className="mt-1 block w-full"
-                            autoFocus
                             onChange={(e) => setData('password', e.target.value)}
                             placeholder="Password"
                         />

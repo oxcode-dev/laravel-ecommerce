@@ -13,6 +13,9 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::get('/confirm-account', [ConfirmAccountController::class, 'index'])->name('confirm_account');
+Route::post('/confirm-account', [ConfirmAccountController::class, 'confirm'])->name('confirm_account');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
@@ -41,8 +44,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/{order}/delete', [OrderController::class, 'delete'])->name('orders.delete');
         Route::get('/{order}', [OrderController::class, 'view'])->name('orders.view');
     });
-
-    Route::get('/confirm-account', [ConfirmAccountController::class, 'index'])->name('confirm_account');
 
     Route::middleware(['admin'])->prefix('users')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('users');

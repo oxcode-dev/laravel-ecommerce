@@ -16,7 +16,7 @@ class ConfirmAccountController extends Controller
         ]);
     }
 
-    public function reset(Request $request): \Illuminate\Http\JsonResponse
+    public function confirm(Request $request)//: \Illuminate\Http\JsonResponse
     {
         $data = $request->validate([
             'otp' => 'required',
@@ -33,6 +33,7 @@ class ConfirmAccountController extends Controller
         ) {
             $user = User::where('email', $data['email'])->first();
 
+            $user['email_verified_at'] = now();
             $user['password'] = bcrypt($data['password']);
 
             $user->save();
@@ -41,5 +42,13 @@ class ConfirmAccountController extends Controller
 
             return redirect()->intended(route('login', absolute: false));
         }
+
+        return back()->with(
+            [
+                'status' => 'failed',
+                'message' => 'this otp does not exist',
+            ],
+            404
+        );
     }
 }
