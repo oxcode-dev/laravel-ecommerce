@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderItem;
 use App\Models\User;
 use App\Notifications\NewUserNotification;
 use Illuminate\Http\RedirectResponse;
@@ -61,9 +62,14 @@ class UserController extends Controller
 
     public function view(Request $request, User $user)//: Response
     {
-        $user = $user::with('products.category', 'orders', 'addresses')->whereId($user->id)->firstOrFail();
+        $orderItems = OrderItem::with('product.user')->whereHas('product', function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        })->get();
+        dd($orderItems->toArray());
 
-        // dd($user->toArray());
+        $user = $user::with('products.category', 'orders.orderItems.product.user', 'addresses')->whereId($user->id)->firstOrFail();
+
+        dd($user->toArray());
 
         return Inertia::render('users/show', [
             'status' => $request->session()->get('status'),

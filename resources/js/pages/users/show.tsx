@@ -124,7 +124,7 @@ export default function Dashboard() {
                                 {
                                     orders.map((order, key) => (
                                         <tr key={key} className="border-b border-blue-gray-200 capitalize">
-                                            <td className="py-3 px-4">{ order?.created_at }</td>
+                                            <td className="py-3 px-4">{ formatDate(order?.created_at) }</td>
                                             <td className="py-3 px-4 capitalize">{ order?.total_amount || 0 }</td>
                                             <td className="py-3 px-4">{ order?.status }</td>
                                             <td className="py-3 px-4">

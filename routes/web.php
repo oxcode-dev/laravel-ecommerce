@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
@@ -37,6 +38,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::delete('/{product}/delete', [ProductController::class, 'delete'])->name('products.delete');
         Route::get('/{product}', [ProductController::class, 'view'])->name('products.view');
+    });
+
+    Route::prefix('order-items')->group(function() {
+        Route::get('/', [OrderItemController::class, 'index'])->name('orderItems');
     });
 
     Route::middleware(['admin'])->prefix('orders')->group(function() {
