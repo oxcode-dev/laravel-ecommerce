@@ -27,7 +27,6 @@ const mainNavItems: NavItem[] = [
         title: 'Orders',
         href: '/orders',
         icon: CalculatorIcon,
-        isVisible: 
     },
     {
         title: 'Order Items',
