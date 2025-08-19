@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Order;
