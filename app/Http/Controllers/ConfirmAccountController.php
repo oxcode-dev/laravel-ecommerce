@@ -28,7 +28,7 @@ class ConfirmAccountController extends Controller
         if (
             OtpCode::where('code', $data['otp'])
                 ->where('email', $data['email'])
-                // ->where('expires_at', '>', now())
+                ->where('expires_at', '>', now())
                 ->exists()
         ) {
             $user = User::where('email', $data['email'])->first();

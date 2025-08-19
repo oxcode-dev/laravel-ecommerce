@@ -17,3 +17,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:san
 Route::post('/forgot-password', [PasswordResetController::class, 'forgot'])->name('api.forgot_password');
 Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('api.reset_password');
 Route::post('/generate-otp', [PasswordResetController::class, 'generateOtp'])->name('api.generate_otp');
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+});
