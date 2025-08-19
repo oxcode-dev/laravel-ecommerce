@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\API\BaseController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -25,6 +26,10 @@ class LoginController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
+        if(!User::where('email', $request->email)->where('role', 'CUSTOMER')->exists()){ 
+            return $this->sendError('Unauthorized.', ['error'=>'Unauthorized']);  
+        } 
+
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
@@ -32,9 +37,8 @@ class LoginController extends BaseController
    
             return $this->sendResponse($success, 'User login successfully.');
         } 
-        else{ 
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
-        } 
+        
+        return $this->sendError('Unauthorized.', ['error'=>'Unauthorized']);
     }
 
     public function logout(Request $request)
