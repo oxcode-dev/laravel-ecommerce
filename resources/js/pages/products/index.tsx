@@ -1,5 +1,6 @@
 import Pager from '@/components/Pager';
 import EmptyState from '@/components/empty-state';
+import { numberFormat } from '@/helper';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, ProductType, ProductItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
@@ -50,7 +51,7 @@ export default function Dashboard() {
                                             <tr key={key} className="border-b border-blue-gray-200 capitalize">
                                                 <td className="py-3 px-4">{ product?.title || '' }</td>
                                                 <td className="py-3 px-4">{ product?.category?.name }</td>
-                                                <td className="py-3 px-4 capitalize">{ product?.price || '' }</td>
+                                                <td className="py-3 px-4 capitalize">{ numberFormat(product?.price || 0) }</td>
                                                 <td className="py-3 px-4">{ product?.user?.name }</td>
                                                 <td className="py-3 px-4">
                                                     <Link href={`/products/${product.id}`} className="font-medium text-blue-600 hover:text-blue-800">
