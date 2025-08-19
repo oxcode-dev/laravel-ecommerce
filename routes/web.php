@@ -22,7 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
-    Route::prefix('categories')->group(function() {
+    Route::middleware(['admin'])->prefix('categories')->group(function() {
         Route::get('/', [CategoryController::class, 'index'])->name('categories');
         Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
         Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
