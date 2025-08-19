@@ -105,7 +105,13 @@ class UserController extends Controller
 
     public function delete(Request $request, User $user)
     {
-        $user = User::where('id', $user->user_id)->first();
+        $user = User::where('id', $user->id)->first();
+
+        $user->products()->delete();
+
+        $user->addresses()->delete();
+
+        $user->orders()->delete();
         
         $user->delete();
 
