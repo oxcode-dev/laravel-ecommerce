@@ -43,8 +43,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'customer@example.com',
             'role' => 'CUSTOMER'
         ])->each(function ($user) {
-            Order::factory()->count(10)->create([ 'user_id' => $user->id, ])->each(function ($order) {
-                OrderItem::factory()->count(random_int(1, 5))->create([
+            Order::factory()->count(2)->create([ 'user_id' => $user->id, ])->each(function ($order) {
+                OrderItem::factory()->count(random_int(1, 3))->create([
                     'order_id' => $order->id,
                 ]);
             });
