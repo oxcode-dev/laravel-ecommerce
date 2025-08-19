@@ -18,6 +18,6 @@ Route::post('/forgot-password', [PasswordResetController::class, 'forgot'])->nam
 Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('api.reset_password');
 Route::post('/generate-otp', [PasswordResetController::class, 'generateOtp'])->name('api.generate_otp');
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
 
 });
