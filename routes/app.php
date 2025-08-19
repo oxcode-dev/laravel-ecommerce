@@ -1,6 +1,5 @@
 <?php
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
