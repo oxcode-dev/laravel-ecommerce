@@ -44,7 +44,6 @@ class LoginController extends BaseController
     public function logout(Request $request)
     {
         if($request->user() !== null) {
-            return $request->user();
             // Revoke the token that was used to authenticate the current request...
             $request->user()->tokens()->delete();
         }
