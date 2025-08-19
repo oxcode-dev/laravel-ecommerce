@@ -1,4 +1,4 @@
-import { formatDate } from '@/helper';
+import { formatDate, numberFormat } from '@/helper';
 import AppLayout from '@/layouts/app-layout';
 import { OrderItem, type BreadcrumbItem, ProductItem, OrderItemsType } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
@@ -106,7 +106,7 @@ export default function Page() {
                                             </td>
                                             <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
                                                 <p className="text-gray-900 whitespace-no-wrap">
-                                                    { order_item?.unit_price || 0 }
+                                                    { numberFormat(order_item?.unit_price || 0) }
                                                 </p>
                                             </td>
                                             <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm text-center">
@@ -118,7 +118,7 @@ export default function Page() {
                                             </td>
                                             <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
                                                 <p className="text-gray-900 whitespace-no-wrap">
-                                                    { order_item?.unit_price * order_item?.quantity }
+                                                    { numberFormat(order_item?.unit_price * order_item?.quantity) }
                                                 </p>
                                             </td>
                                         </tr>
@@ -142,7 +142,7 @@ export default function Page() {
                             <h2 className="text-sm dark:text-white text-gray-600 font-semibold mb-2">Payment Information</h2>
                             <p className="text-xs capitalize">Payment Status: { order?.payment_status }</p>
                             <p className="text-xs capitalize">Payment Method: { order?.payment_method || 'Cash' }</p>
-                            <p className="text-xs capitalize">Shipping Cost: ${ order.delivery_cost || 0 }</p>
+                            <p className="text-xs capitalize">Shipping Cost: ${ numberFormat(order.delivery_cost || 0) }</p>
                         </div>
                     </div>
                 </div>
