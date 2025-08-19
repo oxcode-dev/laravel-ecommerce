@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Notifications\NewUserNotification;
 use App\Notifications\OrderDeleteNotification;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -106,6 +107,23 @@ class User extends Authenticatable
         $this['otp'] = $result;
 
         $this->notify(new NewUserNotification($this));
+
+        OtpCode::where('email', $this->email)->delete();
+
+        OtpCode::create([
+            'code' => $result,
+            'email' => $this->email,
+            'expires_at' => now()->addMinutes(5),
+        ]);
+
+        return $result;
+    }
+
+    public function sendPasswordResetNotification($token = null)
+    {
+        $result = $this->generatePin(5);
+
+        $this->notify(new ResetPasswordNotification($result));
 
         OtpCode::where('email', $this->email)->delete();
 
