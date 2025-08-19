@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Models\Address;
 use App\Models\Category;
@@ -29,3 +30,6 @@ Route::get('/test', function() {
         'addresses' => Address::search('')->get(),
     ]);
 });
+
+Route::post('/login', [LoginController::class, 'login'])->name('api.login');
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum')->name('api.logout');
