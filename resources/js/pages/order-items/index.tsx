@@ -22,11 +22,11 @@ export default function Page() {
             <Head title="Order Items" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
-            <div className="flex justify-end px-4">
-                <Link href="/products/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
-                    Create
-                </Link>
-            </div>
+                {/* <div className="flex justify-end px-4">
+                    <Link href="/products/create" className="bg-blue-600 text-white rounded-lg px-4 py-2">
+                        Create
+                    </Link>
+                </div> */}
             <div className="relative min-h-[100vh] rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                 
                 <div>
