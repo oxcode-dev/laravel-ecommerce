@@ -4,3 +4,9 @@ export function formatDate(value: string|null) {
         new Date(value)
     )
 }
+
+export function numberFormat(number: number|null) {
+    if(!number) return '';
+
+    return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+}
