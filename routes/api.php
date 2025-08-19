@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\ProductController;
 use App\Models\Address;
 use App\Models\Category;
@@ -31,5 +32,9 @@ Route::get('/test', function() {
     ]);
 });
 
+
+Route::post('/register', [RegisterController::class, 'register'])->name('api.register');
 Route::post('/login', [LoginController::class, 'login'])->name('api.login');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum')->name('api.logout');
+// Route::post('/forgot-password', [PasswordResetController::class, 'forgot'])->name('api.forgot_password');
+// Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('api.reset_password');
