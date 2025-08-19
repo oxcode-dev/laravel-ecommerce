@@ -1,4 +1,4 @@
-import { formatDate } from '@/helper';
+import { formatDate, numberFormat } from '@/helper';
 import AppLayout from '@/layouts/app-layout';
 import { OrderItem, type BreadcrumbItem, ProductItem, OrderItemsType } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
@@ -55,11 +55,11 @@ export default function Dashboard() {
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">Total Amount</dt>
-                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">$ { order?.total_amount || '' }</dd>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">$ { numberFormat(order?.total_amount || 0) }</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">Delivery Cost</dt>
-                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">$ { order?.delivery_cost || '' }</dd>
+                                <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">$ { numberFormat(order?.delivery_cost || 0) }</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-500 dark:text-white">Created Date</dt>
@@ -107,7 +107,7 @@ export default function Dashboard() {
                                                     </td>
                                                     <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
                                                         <p className="text-gray-900 whitespace-no-wrap">
-                                                            { item?.unit_price || 0 }
+                                                            { numberFormat(item?.unit_price || 0) }
                                                         </p>
                                                     </td>
                                                     <td className="px-5 py-4 border-b border-gray-200 bg-white text-sm text-center">
@@ -119,7 +119,7 @@ export default function Dashboard() {
                                                     </td>
                                                     <td className="px-5 py-4 border-b border-gray-200 bg-white text-lg text-center">
                                                         <p className="text-gray-900 whitespace-no-wrap">
-                                                            { item?.unit_price * item?.quantity }
+                                                            { numberFormat(item?.unit_price * item?.quantity) }
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -138,7 +138,7 @@ export default function Dashboard() {
                                                     { item?.product?.title }
                                                 </Link>
                                             
-                                                <p className="text-gray-500 whitespace-no-wrap">$ { item?.unit_price || 0 }</p>
+                                                <p className="text-gray-500 whitespace-no-wrap">$ { numberFormat(item?.unit_price || 0) }</p>
                                                 <div className="space-x-2 flex items-center w-full">
                                                     <div className="flex space-x-3 items-center text-sm text-gray-500">
                                                         <span>qty: </span>
@@ -147,7 +147,7 @@ export default function Dashboard() {
                                                 </div>
                                                 <div className="absolute bottom-1 right-0">
                                                     <p className="text-gray-900 whitespace-no-wrap font-semibold text-xl">
-                                                        $ { item?.unit_price * item?.quantity }
+                                                        $ { numberFormat(item?.unit_price * item?.quantity) }
                                                     </p>
                                                 </div>
                                             </div>
@@ -160,16 +160,16 @@ export default function Dashboard() {
                                 <div className="">
                                     <div className="py-2 flex justify-end items-center space-x-4 text-gray-500">
                                         <h6 className="font-medium text-sm">Subtotal</h6>
-                                        <h6 className="font-medium text-xl">$ {order?.total_amount || 0}</h6>
+                                        <h6 className="font-medium text-xl">$ {numberFormat(order?.total_amount || 0)}</h6>
                                     </div>
                                     <div className="py-2 flex justify-end items-center space-x-4 text-gray-500">
                                         <h6 className="font-medium text-sm">Shipping cost</h6>
-                                        <h6 className="font-medium text-xl">$ {order.delivery_cost || 0}</h6>
+                                        <h6 className="font-medium text-xl">$ {numberFormat(order.delivery_cost || 0)}</h6>
                                     </div>
                                     <div className="py-2 flex justify-end items-end space-x-3">
                                         <h3 className="uppercase font-semibold text-lg">Total</h3>
                                         <h1 className="uppercase font-bold text-4xl">
-                                            $ {(order?.total_amount || 0) + (order?.delivery_cost || 0) }
+                                            $ {numberFormat((order?.total_amount || 0) + (order?.delivery_cost || 0)) }
                                         </h1>
                                     </div>
                                 </div>
@@ -190,7 +190,7 @@ export default function Dashboard() {
                             <h2 className="text-sm dark:text-white text-gray-600 font-semibold mb-2">Payment Information</h2>
                             <p className="text-xs capitalize">Payment Status: { order?.payment_status }</p>
                             <p className="text-xs capitalize">Payment Method: { order?.payment_method || 'Cash' }</p>
-                            <p className="text-xs capitalize">Shipping Cost: ${ order.delivery_cost || 0 }</p>
+                            <p className="text-xs capitalize">Shipping Cost: ${ numberFormat(order.delivery_cost || 0) }</p>
                         </div>
                     </div>
                 </div>
