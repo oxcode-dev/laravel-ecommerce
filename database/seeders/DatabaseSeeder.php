@@ -28,6 +28,28 @@ class DatabaseSeeder extends Seeder
             'role' => 'ADMIN'
         ]);
 
+        User::factory()->create([
+            'name' => 'Test Vendor',
+            'email' => 'vendor@example.com',
+            'role' => 'VENDOR'
+        ])->each(function ($user) {
+            Product::factory()->count(10)->create([
+                'user_id' => $user->id
+            ]);
+        });
+
+        User::factory()->create([
+            'name' => 'Test Customer',
+            'email' => 'customer@example.com',
+            'role' => 'CUSTOMER'
+        ])->each(function ($user) {
+            Order::factory()->count(10)->create([ 'user_id' => $user->id, ])->each(function ($order) {
+                OrderItem::factory()->count(random_int(1, 5))->create([
+                    'order_id' => $order->id,
+                ]);
+            });
+        });
+
         Category::factory(3)->create();
         Product::factory(10)->create();
         Order::factory(4)->create();
