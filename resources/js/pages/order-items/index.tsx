@@ -1,6 +1,6 @@
 import Pager from '@/components/Pager';
 import EmptyState from '@/components/empty-state';
-import { formatDate } from '@/helper';
+import { formatDate, numberFormat } from '@/helper';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, OrderItemsType, OrderItemsPropType } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
@@ -51,7 +51,7 @@ export default function Page() {
                                             <tr key={key} className="border-b border-blue-gray-200 capitalize">
                                                 <td className="py-3 px-4">{ item?.product?.title || '' }</td>
                                                 <td className="py-3 px-4 capitalize">{ item?.quantity || 0 }</td>
-                                                <td className="py-3 px-4">{ item?.unit_price }</td>
+                                                <td className="py-3 px-4">{ numberFormat(item?.unit_price) }</td>
                                                 <td className="py-3 px-4">{ formatDate(item?.created_at || null) }</td>
                                                 <td className="py-3 px-4">
                                                     <Link href={`/order-items/${item.id}`} className="font-medium text-blue-600 hover:text-blue-800">
