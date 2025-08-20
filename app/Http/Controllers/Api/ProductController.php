@@ -22,4 +22,15 @@ class ProductController extends BaseController
             'Products fetched successfully!!!.',
         );
     }
+
+    public function show(Request $request, Product $product)//: Response
+    {
+        $product = $product::with('category', 'user', 'reviews.user')
+            ->whereId($product->id)->firstOrFail();
+
+        return $this->sendResponse(
+            $product,
+            'Product fetched successfully!!!.',
+        );
+    }
 }
