@@ -18,7 +18,9 @@ class CategoryController extends BaseController
             )    
             ->paginate($request->get('perPage', 10));
 
-        
-
+        return $this->sendResponse(
+            $categories,
+            'Category fetched successfully!!!.',
+        );
     }
 }
