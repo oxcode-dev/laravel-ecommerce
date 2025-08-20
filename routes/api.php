@@ -35,7 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('api.orders');
-        // Route::get('/{product}', [OrderController::class, 'show'])->name('api.products_show');
+        Route::get('/{order}', [OrderController::class, 'show'])->name('api.orders_show');
     });
     
 });
