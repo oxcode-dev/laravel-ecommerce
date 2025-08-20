@@ -23,4 +23,16 @@ class CategoryController extends BaseController
             'Category fetched successfully!!!.',
         );
     }
+
+    public function show (Request $request, Category $category) 
+    {
+        $category = Category::search($request->get('search', ''))
+            ->whereId($category->id)
+            ->firstOrFail();
+
+        return $this->sendResponse(
+            $category,
+            'Category fetched successfully!!!.',
+        );
+    }
 }

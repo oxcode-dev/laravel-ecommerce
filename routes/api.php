@@ -22,8 +22,7 @@ Route::post('/generate-otp', [PasswordResetController::class, 'generateOtp'])->n
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('categories')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('api.categories');
-        // Route::get('/{category}', [CategoryController::class, 'show'])->name('api.categories_show');
-        // Route::get('/{category}/articles', [CategoryController::class, 'articles'])->name('api.categories_articles');
+        Route::get('/{category}', [CategoryController::class, 'show'])->name('api.categories_show');
     });
     
 });
