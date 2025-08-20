@@ -24,5 +24,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('api.categories');
         Route::get('/{category}', [CategoryController::class, 'show'])->name('api.categories_show');
     });
+
+    Route::prefix('products')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('api.categories');
+        Route::get('/{category}', [CategoryController::class, 'show'])->name('api.categories_show');
+    });
     
 });
