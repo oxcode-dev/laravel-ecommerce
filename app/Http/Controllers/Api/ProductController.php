@@ -26,7 +26,7 @@ class ProductController extends BaseController
     public function show(Request $request, Product $product)//: Response
     {
         $product = $product::with('category', 'user', 'reviews.user')
-            ->whereId($product->id)->firstOrFail();
+            ->whereId($product->id)->where('is_active', true)->first();
 
         return $this->sendResponse(
             $product,

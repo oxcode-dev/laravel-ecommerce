@@ -54,8 +54,9 @@ class Product extends Model
     {
         $relations = ['category', 'user', 'reviews'];
 
-        return empty($query) ? static::query()->with($relations)
+        return empty($query) ? static::query()->with($relations)->where('is_active', true)
             : static::with($relations)
+                ->where('is_active', true)
                 ->where('title', 'like', '%'.$query.'%')
                 ->orWhere('source', 'like', '%'.$query.'%')
                 ->orWhere('author', 'like', '%'.$query.'%');
