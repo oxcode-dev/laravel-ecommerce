@@ -48,6 +48,8 @@ class DatabaseSeeder extends Seeder
                     'order_id' => $order->id,
                 ]);
             });
+            Review::factory(4)->create([ 'user_id' => $user->id, ]);
+            Wishlist::factory(4)->create([ 'user_id' => $user->id, ]);
         });
 
         Category::factory(3)->create();
