@@ -9,11 +9,22 @@ use Illuminate\Support\Facades\Validator;
 
 class ReviewController extends BaseController
 {
-    public function index() 
+    public function index(Request $request) 
     {
-        return response()->json([
-            'data' => Review::withCount('article')->get(),
-        ]);
+        $user = $request->user();
+
+        $reviews = Review::search($request->get('search', ''))
+            ->where('user_id', $user->id)
+            ->orderBy(
+                $request->get('sortField', 'created_at'),
+                $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
+            )    
+            ->paginate($request->get('perPage', 10));
+
+        return $this->sendResponse(
+            $reviews,
+            'Reviews fetched successfully!!!.',
+        );
     }
 
     public function show(Review $review) {

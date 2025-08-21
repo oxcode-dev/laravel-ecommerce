@@ -32,7 +32,7 @@ class Review extends Model
 
     public static function search($query)
     {
-        $relations = ['user'];
+        $relations = ['user', 'product'];
 
         return empty($query) ? static::query()//    ->with($relations)
             : static::with($relations)
