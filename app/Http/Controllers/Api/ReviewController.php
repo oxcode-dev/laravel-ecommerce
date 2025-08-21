@@ -62,7 +62,6 @@ class ReviewController extends BaseController
             );       
         }
 
-
         $review = new Review();
 
         $review->product_id = $request->product_id;
