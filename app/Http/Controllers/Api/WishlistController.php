@@ -31,7 +31,7 @@ class WishlistController extends BaseController
         $user = $request->user();
 
         $wishlist = Wishlist::with('user', 'product')
-            // ->where('user_id', $user->id)
+            ->where('user_id', $user->id)
             ->whereId($wishlist->id)
             ->first();
 
