@@ -57,7 +57,6 @@ class ReviewController extends BaseController
 
         $review = new Review();
 
-        $review->parent_id = $request->parent_id;
         $review->article_id = $request->article_id;
         $review->content = $request->content;
         $review->user_id = $user->name;
@@ -75,8 +74,8 @@ class ReviewController extends BaseController
         Review::find($review->id)?->delete();
         
         return $this->sendResponse(
-            'Article comment deleted successfully.',
-            'Article Comment Deleted!!!.',
+            'Product Review deleted successfully.',
+            'Product Review Deleted!!!.',
         );
     }
 }

@@ -50,8 +50,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('reviews')->group(function () {
         Route::get('/', [ReviewController::class, 'index'])->name('api.reviews');
         Route::post('/', [ReviewController::class, 'store'])->name('api.reviews_store');
-        Route::delete('/{comment}', [ReviewController::class, 'destroy'])->name('api.reviews_destroy');
-        Route::get('/{comment}', [ReviewController::class, 'show'])->name('api.reviews_show');
+        Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('api.reviews_destroy');
+        Route::get('/{review}', [ReviewController::class, 'show'])->name('api.reviews_show');
     })->middleware('auth:sanctum');
     
 });
