@@ -44,6 +44,25 @@ class WishlistController extends BaseController
     public function store(Request $request)
     {
         $user = $request->user();
+        $product_id = $request->get('product_id');
 
+        if(!Wishlist::where('user_id', $user->id)->where('product_id', $product_id)->exists()) {
+            $wishlist = Wishlist::create([
+                'user_id' => $user->id,
+                'product_id' => $product_id
+            ]);
+
+            return $this->sendResponse(
+                $wishlist,
+                'Wishlist Added successfully!!!.',
+            );
+        }
+
+        Wishlist::where('user_id', $user->id)->where('product_id', $product_id)->delete();
+
+        return $this->sendResponse(
+            'Wishlist Removed.',
+            'Wishlist Removed successfully!!!.',
+        );
     }
 }
