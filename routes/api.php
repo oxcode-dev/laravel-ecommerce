@@ -45,5 +45,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/', [WishlistController::class, 'store'])->name('api.wishlists_add');
         Route::delete('/{wishlist}', [WishlistController::class, 'destroy'])->name('api.wishlists_delete');
     });
+
+    Route::prefix('reviews')->group(function () {
+        Route::get('/', [CommentController::class, 'index'])->name('api.reviews');
+        Route::post('/', [CommentController::class, 'store'])->name('api.reviews_store');
+        Route::delete('/{comment}', [CommentController::class, 'destroy'])->name('api.reviews_destroy');
+        Route::get('/{comment}', [CommentController::class, 'show'])->name('api.reviews_show');
+    })->middleware('auth:sanctum');
     
 });
