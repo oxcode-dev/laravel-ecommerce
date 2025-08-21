@@ -41,7 +41,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('wishlists')->group(function () {
         Route::get('/', [WishlistController::class, 'index'])->name('api.wishlists');
-        Route::get('/{order}', [WishlistController::class, 'show'])->name('api.wishlists_show');
+        Route::get('/{wishlist}', [WishlistController::class, 'show'])->name('api.wishlists_show');
     });
     
 });
