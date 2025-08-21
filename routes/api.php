@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('api.orders');
         Route::get('/{order}', [OrderController::class, 'show'])->name('api.orders_show');
+    });
+
+    Route::prefix('wishlists')->group(function () {
+        Route::get('/', [WishlistController::class, 'index'])->name('api.wishlists');
+        Route::get('/{order}', [WishlistController::class, 'show'])->name('api.wishlists_show');
     });
     
 });
