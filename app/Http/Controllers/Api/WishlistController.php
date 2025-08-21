@@ -22,7 +22,7 @@ class WishlistController extends BaseController
 
         return $this->sendResponse(
             $wishlists,
-            'Products fetched successfully!!!.',
+            'Wishlists fetched successfully!!!.',
         );
     }
 
@@ -37,7 +37,7 @@ class WishlistController extends BaseController
 
         return $this->sendResponse(
             $wishlist,
-            'Products fetched successfully!!!.',
+            'Wishlist fetched successfully!!!.',
         );
     }
 }
