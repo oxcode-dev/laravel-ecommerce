@@ -43,29 +43,37 @@ class ReviewController extends BaseController
 
     public function store(Request $request) 
     {
+        $user =  $request->user();
+
         $validator = Validator::make($request->all(), [
-            'parent_id' => 'nullable',
             'product_id' => 'required',
-            'content' => 'required',
+            'comment' => 'required',
+            'rating' => 'required',
         ]);
    
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $user =  $request->user();
+        if(Review::where('product_id', $request->product_id)->where('user_id', $user->id)->exists()) {
+            return $this->sendError(
+                'Review Exist Error.',
+                'Review Already Made!!!'
+            );       
+        }
+
 
         $review = new Review();
 
-        $review->article_id = $request->article_id;
-        $review->content = $request->content;
-        $review->user_id = $user->name;
+        $review->product_id = $request->product_id;
+        $review->comment = $request->comment;
+        $review->user_id = $user->id;
 
         $review->save();
         
         return $this->sendResponse(
-            'Article comment saved successfully.',
-            'Article Comment Saved!!!.',
+            'Product Review saved successfully.',
+            'Product Review Saved!!!.',
         );
     }
 
