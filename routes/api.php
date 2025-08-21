@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,10 +48,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::prefix('reviews')->group(function () {
-        Route::get('/', [CommentController::class, 'index'])->name('api.reviews');
-        Route::post('/', [CommentController::class, 'store'])->name('api.reviews_store');
-        Route::delete('/{comment}', [CommentController::class, 'destroy'])->name('api.reviews_destroy');
-        Route::get('/{comment}', [CommentController::class, 'show'])->name('api.reviews_show');
+        Route::get('/', [ReviewController::class, 'index'])->name('api.reviews');
+        Route::post('/', [ReviewController::class, 'store'])->name('api.reviews_store');
+        Route::delete('/{comment}', [ReviewController::class, 'destroy'])->name('api.reviews_destroy');
+        Route::get('/{comment}', [ReviewController::class, 'show'])->name('api.reviews_show');
     })->middleware('auth:sanctum');
     
 });
