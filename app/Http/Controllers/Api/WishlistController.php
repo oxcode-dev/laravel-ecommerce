@@ -65,4 +65,16 @@ class WishlistController extends BaseController
             'Wishlist Removed successfully!!!.',
         );
     }
+
+    public function destroy(Request $request, Wishlist $wishlist)
+    {
+        $user = $request->user();
+
+        Wishlist::where('user_id', $user->id)->whereId($wishlist->id)->delete();
+
+        return $this->sendResponse(
+            'Wishlist Removed.',
+            'Wishlist Removed successfully!!!.',
+        );
+    }
 }
