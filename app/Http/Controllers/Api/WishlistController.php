@@ -40,4 +40,10 @@ class WishlistController extends BaseController
             'Wishlist fetched successfully!!!.',
         );
     }
+
+    public function store(Request $request)
+    {
+        $user = $request->user();
+
+    }
 }

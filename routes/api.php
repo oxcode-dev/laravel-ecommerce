@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('wishlists')->group(function () {
         Route::get('/', [WishlistController::class, 'index'])->name('api.wishlists');
         Route::get('/{wishlist}', [WishlistController::class, 'show'])->name('api.wishlists_show');
-        Route::post('/{wishlist}', [WishlistController::class, 'store'])->name('api.wishlists_add');
+        Route::post('/', [WishlistController::class, 'store'])->name('api.wishlists_add');
     });
     
 });
