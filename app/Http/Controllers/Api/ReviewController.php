@@ -27,10 +27,18 @@ class ReviewController extends BaseController
         );
     }
 
-    public function show(Review $review) {
-        return response()->json([
-            'data' => $review::with('article')->firstOrFail(),
-        ]);
+    public function show(Request $request, Review $review) {
+        $user = $request->user();
+
+        $review = Review::with('user', 'product')
+            ->where('user_id', $user->id)
+            ->whereId($review->id)
+            ->first();
+
+        return $this->sendResponse(
+            $review,
+            'Review fetched successfully!!!.',
+        );
     }
 
     public function store(Request $request) 
