@@ -66,6 +66,7 @@ class ReviewController extends BaseController
 
         $review->product_id = $request->product_id;
         $review->comment = $request->comment;
+        $review->rating = $request->rating;
         $review->user_id = $user->id;
 
         $review->save();
