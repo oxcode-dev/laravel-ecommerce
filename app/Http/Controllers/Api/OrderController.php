@@ -42,4 +42,3 @@ class OrderController extends BaseController
     }
 }
 
-
