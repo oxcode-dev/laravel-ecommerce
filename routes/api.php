@@ -23,18 +23,19 @@ Route::post('/forgot-password', [PasswordResetController::class, 'forgot'])->nam
 Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('api.reset_password');
 Route::post('/generate-otp', [PasswordResetController::class, 'generateOtp'])->name('api.generate_otp');
 
+Route::prefix('categories')->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('api.categories');
+    Route::get('/{category}', [CategoryController::class, 'show'])->name('api.categories_show');
+    Route::get('/{category}/products', [CategoryController::class, 'products'])->name('api.categories_products');
+});
+
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('api.products');
+    Route::get('/{product}', [ProductController::class, 'show'])->name('api.products_show');
+});
+
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::prefix('categories')->group(function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('api.categories');
-        Route::get('/{category}', [CategoryController::class, 'show'])->name('api.categories_show');
-        Route::get('/{category}/products', [CategoryController::class, 'products'])->name('api.categories_products');
-    });
-
-    Route::prefix('products')->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('api.products');
-        Route::get('/{product}', [ProductController::class, 'show'])->name('api.products_show');
-    });
-
+    
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('api.orders');
         Route::get('/{order}', [OrderController::class, 'show'])->name('api.orders_show');
@@ -55,3 +56,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     })->middleware('auth:sanctum');
     
 });
+
+
