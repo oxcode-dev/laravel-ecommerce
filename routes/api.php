@@ -54,5 +54,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('api.reviews_destroy');
         Route::get('/{review}', [ReviewController::class, 'show'])->name('api.reviews_show');
     })->middleware('auth:sanctum');
-    
 });
