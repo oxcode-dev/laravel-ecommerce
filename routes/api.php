@@ -55,4 +55,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/{review}', [ReviewController::class, 'show'])->name('api.reviews_show');
     })->middleware('auth:sanctum');
 });
-
