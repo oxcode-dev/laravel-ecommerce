@@ -24,7 +24,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'phone',
@@ -80,7 +81,8 @@ class User extends Authenticatable
 
         return empty($query) ? static::query()->with($relations)
             : static::with($relations)
-                ->where('name', 'like', '%'.$query.'%')
+                ->where('first_name', 'like', '%'.$query.'%')
+                ->where('last_name', 'like', '%'.$query.'%')
                 // ->orWhere('source', 'like', '%'.$query.'%')
                 ->orWhere('email', 'like', '%'.$query.'%');
     }

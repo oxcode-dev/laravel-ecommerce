@@ -23,13 +23,15 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
+            'first_name' => 'Test',
+            'last_name' => 'User',
             'email' => 'test@example.com',
             'role' => 'ADMIN'
         ]);
 
         User::factory()->create([
-            'name' => 'Test Vendor',
+            'first_name' => 'Test',
+            'last_name' => 'Vendor',
             'email' => 'vendor@example.com',
             'role' => 'VENDOR'
         ])->each(function ($user) {
@@ -39,7 +41,8 @@ class DatabaseSeeder extends Seeder
         });
 
         User::factory()->create([
-            'name' => 'Test Customer',
+            'first_name' => 'Test',
+            'last_name' => 'Customer',
             'email' => 'customer@example.com',
             'role' => 'CUSTOMER'
         ])->each(function ($user) {
