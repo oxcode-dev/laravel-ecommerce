@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('street')->nullable();
             $table->string('city');
             $table->string('state')->nullable();
-            $table->string('country');
+            $table->string('country')->nullable();
             $table->string('postal_code')->nullable();
             $table->boolean('is_default')->default(false);
             $table->timestamps();
