@@ -21,7 +21,7 @@ class RegisterController extends BaseController
             'last_name' => 'required',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => 'required',
-            'current_password' => 'required|same:password',
+            'confirm_password' => 'required|same:password',
             'phone' => 'required',
         ]);
    
