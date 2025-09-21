@@ -28,7 +28,7 @@ class LoginController extends BaseController
         }
 
         if(!User::where('email', $request->email)->where('role', 'CUSTOMER')->exists()){ 
-            return $this->sendError('Unauthorized.', ['error'=>'Unauthorized']);  
+            return $this->sendError('Unauthorized.', ['error'=> 'Unauthorized']);  
         } 
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
