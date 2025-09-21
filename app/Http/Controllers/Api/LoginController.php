@@ -20,6 +20,7 @@ class LoginController extends BaseController
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
+            'remember_me' => 'sometimes|boolean',
         ]);
    
         if($validator->fails()){
