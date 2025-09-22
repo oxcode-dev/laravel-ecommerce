@@ -28,18 +28,20 @@ class LoginController extends BaseController
         }
 
         if(!User::where('email', $request->email)->where('role', 'CUSTOMER')->exists()){ 
-            return $this->sendError('These credentials do not match our records.', ['error'=> 'These credentials do not match our records.']);  
+            return $this->sendError('These credentials do not match our records.', ['error'=> 'Invalid Credentials.']);  
         } 
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
-            $success['name'] =  $user->name;
+            $success['first_name'] =  $user->first_name;
+            $success['last_name'] =  $user->last_name;
+            $success['email'] =  $user->email;
    
             return $this->sendResponse($success, 'User login successfully.');
         } 
         
-        return $this->sendError('These credentials do not match our records.', ['error'=>'These credentials do not match our records.']);
+        return $this->sendError('These credentials do not match our records.', ['error'=>'Invalid Credentials.']);
     }
 
     public function logout(Request $request)
