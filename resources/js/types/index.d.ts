@@ -35,7 +35,8 @@ export interface SharedData {
 
 export interface User {
     id: number;
-    name: string;
+    first_name: string;
+    last_name: string;
     email: string;
     phone: string;
     role: string;
@@ -48,7 +49,6 @@ export interface User {
     orders: OrderItem[],
     [key: string]: unknown; // This allows for additional properties...
 }
-
 
 export interface CategoryItem {
     id: string;
