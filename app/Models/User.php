@@ -7,11 +7,13 @@ namespace App\Models;
 use App\Notifications\NewUserNotification;
 use App\Notifications\OrderDeleteNotification;
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
@@ -73,6 +75,11 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function name(): Attribute
+    {
+        return Attribute::get(fn (): string => "$this->first_name $this->last_name");
     }
 
     public static function search($query)
