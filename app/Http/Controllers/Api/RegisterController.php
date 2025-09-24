@@ -32,10 +32,11 @@ class RegisterController extends BaseController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $input['role'] = 'CUSTOMER';
+        $input['email_verified_at'] = now();
 
         // return $input;
         $user = User::create($input);
-        
+
         $success['token'] =  $user->createToken('MyApp')->plainTextToken;
         $success['name'] =  $user->name;
         $success['first_name'] =  $user->first_name;
