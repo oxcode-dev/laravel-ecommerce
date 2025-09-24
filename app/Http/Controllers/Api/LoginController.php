@@ -39,6 +39,7 @@ class LoginController extends BaseController
             $success['email'] =  $user->email;
             $success['phone'] =  $user->phone;
             $success['avatar'] =  $user->avatar;
+            $success['name'] =  $user->name;
    
             return $this->sendResponse($success, 'User login successfully.');
         } 
