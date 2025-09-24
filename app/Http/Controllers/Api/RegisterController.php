@@ -22,7 +22,7 @@ class RegisterController extends BaseController
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => 'required',
             'confirm_password' => 'required|same:password',
-            'phone' => 'required',
+            'phone' => 'nullable',
         ]);
    
         if($validator->fails()){
@@ -44,6 +44,7 @@ class RegisterController extends BaseController
         $success['email'] =  $user->email;
         $success['phone'] =  $user->phone;
         $success['avatar'] =  $user->avatar;
+        $success['name'] =  $user->name;
    
         return $this->sendResponse($success, 'User register successfully.');
     }
