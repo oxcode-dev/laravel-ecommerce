@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\WishlistController;
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,7 @@ Route::prefix('products')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/profile-update', [ProfileController::class, 'update'])->name('api.update_profile')
     
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('api.orders');
