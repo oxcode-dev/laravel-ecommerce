@@ -38,7 +38,7 @@ class ResetPasswordNotification extends Notification
         return (new MailMessage())
             ->line('Forgot password?')
             ->line('Here is your OTP: '.$this->otp)
-            ->action('Reset Password', $customer_url . '/reset-password')
+            ->action('Reset Password', $customer_url . '/auth/reset-password')
             ->line('Thank you for using our GreenBasket Shop!');
     }
 

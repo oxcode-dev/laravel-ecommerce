@@ -21,7 +21,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('api.login');
 Route::delete('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum')->name('api.logout');
 Route::post('/forgot-password', [PasswordResetController::class, 'forgot'])->name('api.forgot_password');
 Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('api.reset_password');
-Route::post('/generate-otp', [PasswordResetController::class, 'generateOtp'])->name('api.generate_otp');
+Route::post('/reset-password/generate-otp', [PasswordResetController::class, 'generateOtp'])->name('api.generate_otp');
 
 Route::prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('api.categories');
