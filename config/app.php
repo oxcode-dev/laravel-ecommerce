@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'customer_app_url' => env('CUSTOMER_URL', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -122,5 +123,7 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+
 
 ];

@@ -34,10 +34,12 @@ class ResetPasswordNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $customer_url = config('app.customer_app_url');
         return (new MailMessage())
             ->line('Forgot password?')
             ->line('Here is your OTP: '.$this->otp)
-            ->line('Thank you for using our Blog App!');
+            ->action('Reset Password', $customer_url . '/reset-password')
+            ->line('Thank you for using our GreenBasket Shop!');
     }
 
     /**
