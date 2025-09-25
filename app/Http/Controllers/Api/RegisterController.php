@@ -26,7 +26,7 @@ class RegisterController extends BaseController
         ]);
    
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return $this->sendError('Error Occurred.', $validator->errors());       
         }
    
         $input = $request->all();
