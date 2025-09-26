@@ -59,8 +59,8 @@ class ProfileController extends BaseController
         }
 
         
-        $user()->update([
-            'password' => bcrypt($input['password']),
+        $user->update([
+            'password' => bcrypt($request->get('password')),
         ]);
 
         return $this->sendResponse(['Password Changed Successfully'], 'Password Changed Successfully.');
