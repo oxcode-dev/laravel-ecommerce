@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Http\Resources\UserResource;
 
 class ProfileController extends BaseController
 {
@@ -35,17 +36,6 @@ class ProfileController extends BaseController
         $request->user()->fill($input);
         $request->user()->save();
 
-        return [$request->user(), $user];
-        // $user = $user->save($input);
-
-        $success['name'] =  $user->name;
-        $success['first_name'] =  $user->first_name;
-        $success['last_name'] =  $user->last_name;
-        $success['email'] =  $user->email;
-        $success['phone'] =  $user->phone;
-        $success['avatar'] =  $user->avatar;
-        $success['name'] =  $user->name;
-
-        return $this->sendResponse($success, 'User Profile Updated Successfully.');
+        return $this->sendResponse(new UserResource($user), 'User Profile Updated Successfully.');
     }
 }
