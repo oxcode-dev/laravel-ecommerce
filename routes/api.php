@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\WishlistController;
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('api.reviews_destroy');
         Route::get('/{review}', [ReviewController::class, 'show'])->name('api.reviews_show');
     })->middleware('auth:sanctum');
+
+    Route::prefix('addresses')->group(function () {
+        Route::get('/', [AddressController::class, 'index'])->name('api.addresses');
+        Route::post('/', [AddressController::class, 'store'])->name('api.addresses_add');
+        Route::get('/{address}', [AddressController::class, 'show'])->name('api.addresses_show');
+        Route::put('/{address}', [AddressController::class, 'update'])->name('api.addresses_destroy');
+        Route::delete('/{address}', [AddressController::class, 'destroy'])->name('api.addresses_delete');
+    });
 });
 
 
