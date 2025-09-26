@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->hasMany(Address::class);
     }
 
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
     public function name(): Attribute
     {
         return Attribute::get(fn (): string => "$this->first_name $this->last_name");

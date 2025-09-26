@@ -38,6 +38,7 @@ Route::prefix('products')->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profile-update', [ProfileController::class, 'update'])->name('api.update_profile');
     Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('api.change_password');
+    Route::post('/delete-account', [ProfileController::class, 'deleteAccount'])->name('api.delete_account');
     
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('api.orders');

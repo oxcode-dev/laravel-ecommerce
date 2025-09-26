@@ -65,4 +65,29 @@ class ProfileController extends BaseController
 
         return $this->sendResponse(['Password Changed Successfully'], 'Password Changed Successfully.');
     }
+
+    public function deleteAccount(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Error Occurred.', $validator->errors());       
+        }
+
+        if($request->user() !== null) {
+            $user = $request->user();
+
+            $user->addresses()->delete();
+            $user->orders()->delete();
+            $user->wishlists()->delete();
+
+            $user->delete();
+
+            $request->user()->tokens()->delete();
+
+            return $this->sendResponse(['Account Deleted Successfully'], 'Account Deleted Successfully.');
+        }
+    }
 }
