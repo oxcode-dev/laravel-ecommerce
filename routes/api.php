@@ -36,7 +36,7 @@ Route::prefix('products')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/profile-update', [ProfileController::class, 'update'])->name('api.update_profile')
+    Route::post('/profile-update', [ProfileController::class, 'update'])->name('api.update_profile');
     
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('api.orders');

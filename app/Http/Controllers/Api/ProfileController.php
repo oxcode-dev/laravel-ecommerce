@@ -1,10 +1,13 @@
 <?php
 
+namespace App\Http\Controllers\API;
+
 use App\Http\Controllers\Api\BaseController as BaseController;
 
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends BaseController
 {
@@ -20,7 +23,7 @@ class ProfileController extends BaseController
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => [ 'required', 'string','lowercase', 'email', 'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id),
+                // Rule::unique(User::class)->ignore($this->user()->id),
             ],
             'phone' => ['required', 'string', 'max:255'],
         ]);
@@ -29,9 +32,13 @@ class ProfileController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $request->user()->fill($request->validated());
         $input = $request->all();
-        $user = User::create($input);
+
+        $request->user()->fill($input);
+        $request->user()->save();
+
+        return [$request->user(), $user];
+        // $user = $user->save($input);
 
         $success['name'] =  $user->name;
         $success['first_name'] =  $user->first_name;
