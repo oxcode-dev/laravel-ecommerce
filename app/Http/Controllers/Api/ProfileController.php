@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\UserResource;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends BaseController
 {
@@ -28,7 +29,7 @@ class ProfileController extends BaseController
         ]);
    
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return $this->sendError('Error Occurred.', $validator->errors());       
         }
 
         $input = $request->all();
@@ -37,5 +38,31 @@ class ProfileController extends BaseController
         $request->user()->save();
 
         return $this->sendResponse(new UserResource($user), 'User Profile Updated Successfully.');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $user = $request->user();
+
+        if (! $user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
+        
+        $validator = Validator::make($request->all(), [
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults()],
+            'confirm_password' => 'required|same:password',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Error Occurred.', $validator->errors());       
+        }
+
+        
+        $user()->update([
+            'password' => bcrypt($input['password']),
+        ]);
+
+        return $this->sendResponse(['Password Changed Successfully'], 'Password Changed Successfully.');
     }
 }
