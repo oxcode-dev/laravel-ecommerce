@@ -12,6 +12,8 @@ class AddressController extends BaseController
     {
         $user = $request->user();
 
+        $this->confirmUser($user);
+
         $addresses = Address::search($request->get('search', ''))
             ->where('user_id', $user->id)
             ->orderBy(
@@ -26,18 +28,11 @@ class AddressController extends BaseController
         );
     }
 
-    public function store(Request $request)
-    {
-        
-    }
-
     public function show(Request $request, Address $address)
     {
         $user = $request->user();
 
-        if (! $user) {
-            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
-        }
+        $this->confirmUser($user);
 
         $address = Address::search($request->get('search', ''))
             ->where('user_id', $user->id)
@@ -50,18 +45,42 @@ class AddressController extends BaseController
         );
     }
 
+    public function store(Request $request)
+    {
+        $user = $request->user();
+
+        $this->confirmUser($user);
+
+        $address = new Address();
+
+        $this->storeAddress($request, $address);
+
+        return $this->sendResponse(
+            ['response' => 'Address Saved successfully'],
+            'Address Saved successfully!!!.',
+        );
+
+    }
+
     public function update(Request $request, Address $address)
     {
-        
+        $user = $request->user();
+
+        $this->confirmUser($user);
+
+        $this->storeAddress($request, $address);
+
+        return $this->sendResponse(
+            ['response' => 'Address Updated successfully'],
+            'Address Updated successfully!!!.',
+        );
     }
 
     public function destroy(Request $request, Address $address)
     {
         $user = $request->user();
 
-        if (! $user) {
-            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
-        }
+        $this->confirmUser($user);
 
         $address->delete();
 
@@ -69,5 +88,27 @@ class AddressController extends BaseController
             ['response' => 'Address deleted successfully'],
             'Address deleted successfully!!!.',
         );
+    }
+
+    private function storeAddress($request, $address)
+    {
+        $validator = Validator::make($request->all(), [
+            'street' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'state' => [ 'required', 'string','lowercase', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'postal_code' => ['required', 'string', 'max:255'],
+        ]);
+   
+        if($validator->fails()){
+            return $this->sendError('Error Occurred.', $validator->errors());       
+        }
+
+        $address->user_id = $user['id'];
+        $address->street = $validator['street'];
+        $address->street = $validator['street'];
+        $address->street = $validator['street'];
+        $address->street = $validator['street'];
+
+        $address->save();
     }
 }
