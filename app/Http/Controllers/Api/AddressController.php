@@ -10,7 +10,20 @@ class AddressController extends BaseController
 {
     public function index(Request $request)
     {
-        
+        $user = $request->user();
+
+        $addresses = Address::search($request->get('search', ''))
+            ->where('user_id', $user->id)
+            ->orderBy(
+                $request->get('sortField', 'created_at'),
+                $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
+            )->get();
+            // ->paginate($request->get('perPage', 20));
+
+        return $this->sendResponse(
+            $addresses,
+            'Addresses fetched successfully!!!.',
+        );
     }
 
     public function store(Request $request)
@@ -20,7 +33,17 @@ class AddressController extends BaseController
 
     public function show(Request $request, Address $address)
     {
-        
+        $user = $request->user();
+
+        $address = Address::search($request->get('search', ''))
+            ->where('user_id', $user->id)
+            ->whereId($address->id)
+            ->first();
+
+        return $this->sendResponse(
+            $address,
+            'Address fetched successfully!!!.',
+        );
     }
 
     public function update(Request $request, Address $address)
