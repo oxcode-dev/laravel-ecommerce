@@ -35,6 +35,10 @@ class AddressController extends BaseController
     {
         $user = $request->user();
 
+        if (! $user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
+
         $address = Address::search($request->get('search', ''))
             ->where('user_id', $user->id)
             ->whereId($address->id)
@@ -53,6 +57,17 @@ class AddressController extends BaseController
 
     public function destroy(Request $request, Address $address)
     {
-        
+        $user = $request->user();
+
+        if (! $user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
+
+        $address->delete();
+
+        return $this->sendResponse(
+            ['response' => 'Address deleted successfully'],
+            'Address deleted successfully!!!.',
+        );
     }
 }
