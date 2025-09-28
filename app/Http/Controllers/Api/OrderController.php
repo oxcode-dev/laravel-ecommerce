@@ -18,7 +18,7 @@ class OrderController extends BaseController
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 10));
+            ->paginate($request->get('perPage', 1));
 
         return $this->sendResponse(
             $orders,
