@@ -12,6 +12,10 @@ class WishlistController extends BaseController
     {
         $user = $request->user();
 
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
+
         $wishlists = Wishlist::search($request->get('search', ''))
             ->where('user_id', $user->id)
             ->orderBy(
@@ -30,6 +34,10 @@ class WishlistController extends BaseController
     {
         $user = $request->user();
 
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
+
         $wishlist = Wishlist::with('user', 'product')
             ->where('user_id', $user->id)
             ->whereId($wishlist->id)
@@ -44,6 +52,11 @@ class WishlistController extends BaseController
     public function store(Request $request)
     {
         $user = $request->user();
+
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
+
         $product_id = $request->get('product_id');
 
         if(!Wishlist::where('user_id', $user->id)->where('product_id', $product_id)->exists()) {
@@ -69,6 +82,10 @@ class WishlistController extends BaseController
     public function destroy(Request $request, Wishlist $wishlist)
     {
         $user = $request->user();
+
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
 
         Wishlist::where('user_id', $user->id)->whereId($wishlist->id)->delete();
 
