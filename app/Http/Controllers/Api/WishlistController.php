@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\API\BaseController;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use App\Http\Resources\WishlistResource;
+use App\Http\Resources\WishlistCollection;
 
 class WishlistController extends BaseController
 {
@@ -22,9 +24,10 @@ class WishlistController extends BaseController
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 10));
+            ->paginate($request->get('perPage', 1));
 
         return $this->sendResponse(
+            // WishlistResource::collection($wishlists),
             $wishlists,
             'Wishlists fetched successfully!!!.',
         );
