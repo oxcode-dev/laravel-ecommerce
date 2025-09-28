@@ -103,10 +103,12 @@ class AddressController extends BaseController
 
     private function storeAddress($request, $address)
     {
-        $validator = Validator::make($request->all(), [
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
             'street' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
-            'state' => [ 'required', 'string','lowercase', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'state' => [ 'required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'max:255'],
         ]);
    
@@ -114,11 +116,11 @@ class AddressController extends BaseController
             return $this->sendError('Error Occurred.', $validator->errors());       
         }
 
-        $address->user_id = $user['id'];
-        $address->street = $validator['street'];
-        $address->street = $validator['street'];
-        $address->street = $validator['street'];
-        $address->street = $validator['street'];
+        $address->user_id = $request->user()['id'];
+        $address->street = $input['street'];
+        $address->city = $input['city'];
+        $address->state = $input['state'];
+        $address->postal_code = $input['postal_code'];
 
         $address->save();
     }
