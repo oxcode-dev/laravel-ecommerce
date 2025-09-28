@@ -17,7 +17,9 @@ class ProfileController extends BaseController
     {
         $user = $request->user();
 
-        $this->confirmUser($user);
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
 
         $validator = Validator::make($request->all(), [
             'first_name' => ['required', 'string', 'max:255'],
@@ -42,7 +44,9 @@ class ProfileController extends BaseController
     {
         $user = $request->user();
 
-        $this->confirmUser($user);
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
         
         $validator = Validator::make($request->all(), [
             'current_password' => ['required', 'current_password'],

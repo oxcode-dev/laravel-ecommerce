@@ -7,9 +7,14 @@ use Illuminate\Http\JsonResponse;
 
 class BaseController extends Controller
 {
-    public function confirmUser($user)
+    /**
+     * success response method.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function confirmUser($user) :JsonResponse
     {
-        if (! $user) {
+        if (!$user) {
             return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
         }
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\API\BaseController;
 use Illuminate\Http\Request;
 use App\Models\Address;
+use Illuminate\Support\Facades\Validator;
 
 class AddressController extends BaseController
 {
@@ -12,7 +13,9 @@ class AddressController extends BaseController
     {
         $user = $request->user();
 
-        $this->confirmUser($user);
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
 
         $addresses = Address::search($request->get('search', ''))
             ->where('user_id', $user->id)
@@ -32,7 +35,9 @@ class AddressController extends BaseController
     {
         $user = $request->user();
 
-        $this->confirmUser($user);
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
 
         $address = Address::search($request->get('search', ''))
             ->where('user_id', $user->id)
@@ -49,7 +54,9 @@ class AddressController extends BaseController
     {
         $user = $request->user();
 
-        $this->confirmUser($user);
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
 
         $address = new Address();
 
@@ -66,7 +73,9 @@ class AddressController extends BaseController
     {
         $user = $request->user();
 
-        $this->confirmUser($user);
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
 
         $this->storeAddress($request, $address);
 
@@ -80,7 +89,9 @@ class AddressController extends BaseController
     {
         $user = $request->user();
 
-        $this->confirmUser($user);
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
 
         $address->delete();
 
