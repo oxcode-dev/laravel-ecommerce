@@ -24,7 +24,7 @@ class WishlistController extends BaseController
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 1));
+            ->paginate($request->get('perPage', 2));
 
         return $this->sendResponse(
             // WishlistResource::collection($wishlists),
