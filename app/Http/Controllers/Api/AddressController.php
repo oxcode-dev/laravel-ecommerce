@@ -58,6 +58,17 @@ class AddressController extends BaseController
             return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
         }
 
+        $validator = Validator::make($request->all(), [
+            'street' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'state' => [ 'required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:255'],
+        ]);
+   
+        if($validator->fails()){
+            return $this->sendError('Error Occurred.', $validator->errors());       
+        }
+
         $address = new Address();
 
         $this->storeAddress($request, $address);
@@ -75,6 +86,17 @@ class AddressController extends BaseController
 
         if (!$user) {
             return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
+
+        $validator = Validator::make($request->all(), [
+            'street' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'state' => [ 'required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:255'],
+        ]);
+   
+        if($validator->fails()){
+            return $this->sendError('Error Occurred.', $validator->errors());       
         }
 
         $this->storeAddress($request, $address);
@@ -104,17 +126,6 @@ class AddressController extends BaseController
     private function storeAddress($request, $address)
     {
         $input = $request->all();
-
-        $validator = Validator::make($input, [
-            'street' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'state' => [ 'required', 'string', 'max:255'],
-            'postal_code' => ['required', 'string', 'max:255'],
-        ]);
-   
-        if($validator->fails()){
-            return $this->sendError('Error Occurred.', $validator->errors());       
-        }
 
         $address->user_id = $request->user()['id'];
         $address->street = $input['street'];
