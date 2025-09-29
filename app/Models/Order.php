@@ -41,7 +41,8 @@ class Order extends Model
 
     public static function search($query)
     {
-        $relations = ['user', 'address', 'orderItems.product'];
+        // $relations = ['user', 'address', 'orderItems.product'];
+        $relations = [];
 
         return empty($query) ? static::with($relations)
             : static::with($relations)

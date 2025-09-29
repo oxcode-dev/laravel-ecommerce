@@ -30,7 +30,7 @@ class OrderController extends BaseController
     {
         $user = $request->user();
 
-        $order = Order::search($request->get('search', ''))
+        $order = Order::with(['user', 'address', 'orderItems.product'])
             ->where('user_id', $user->id)
             ->whereId($order->id)
             ->first();
