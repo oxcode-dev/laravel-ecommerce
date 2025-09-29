@@ -20,7 +20,7 @@ class CategoryController extends BaseController
             ->paginate($request->get('perPage', 10));
 
         return $this->sendResponse(
-            Category::take(20)->get(),
+            Category::withCount('products')->take(20)->get(),
             'Category fetched successfully!!!.',
         );
     }
