@@ -52,7 +52,7 @@ class Product extends Model
 
     public static function search($query)
     {
-        $relations = ['category', 'user', 'reviews'];
+        $relations = ['category', 'user', 'reviews', 'wishlists'];
 
         return empty($query) ? static::query()->with($relations)->where('is_active', true)
             : static::with($relations)
