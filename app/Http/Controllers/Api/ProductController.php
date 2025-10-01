@@ -23,10 +23,11 @@ class ProductController extends BaseController
         );
     }
 
-    public function show(Request $request, Product $product)//: Response
+    public function show(Request $request, $slug)//: Response
     {
-        $product = $product::with('category', 'user', 'reviews.user')
-            ->whereId($product->id)->where('is_active', true)->first();
+        $product = Product::where('slug', $slug)
+            ->with('category', 'user', 'reviews.user', 'wishlists')
+            ->where('is_active', true)->first();
 
         return $this->sendResponse(
             $product,
