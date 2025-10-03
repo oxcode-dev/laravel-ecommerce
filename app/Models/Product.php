@@ -57,9 +57,9 @@ class Product extends Model
         return empty($query) ? static::query()->with($relations)->where('is_active', true)
             : static::with($relations)
                 ->where('is_active', true)
-                ->where('title', 'like', '%'.$query.'%')
-                ->orWhere('source', 'like', '%'.$query.'%')
-                ->orWhere('author', 'like', '%'.$query.'%');
+                ->where('title', 'like', '%'.$query.'%');
+                // ->orWhere('source', 'like', '%'.$query.'%')
+                // ->orWhere('author', 'like', '%'.$query.'%');
     }
 
     protected function casts(): array

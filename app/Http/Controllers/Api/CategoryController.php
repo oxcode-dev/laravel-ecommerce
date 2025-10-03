@@ -37,8 +37,9 @@ class CategoryController extends BaseController
         );
     }
 
-    public function products (Request $request, Category $category) 
+    public function products (Request $request, $slug) 
     {
+        $category = Category::where('slug', $slug)->firstOrFail();
         $products = Product::search($request->get('search', ''))
             ->where('category_id', $category->id)
             ->orderBy(
