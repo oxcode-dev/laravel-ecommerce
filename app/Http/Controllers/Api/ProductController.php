@@ -34,4 +34,9 @@ class ProductController extends BaseController
             'Product fetched successfully!!!.',
         );
     }
+
+    public function cartProducts(Request $request)
+    {
+        return $request->all();
+    }
 }
