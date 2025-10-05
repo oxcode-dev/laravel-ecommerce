@@ -37,6 +37,13 @@ class ProductController extends BaseController
 
     public function cartProducts(Request $request)
     {
-        return $request->all();
+        $ids = $request->get('id');
+
+        $products = Product::whereIn('id', $ids)->get();
+
+        return $this->sendResponse(
+            $products,
+            'Products fetched successfully!!!.',
+        );
     }
 }
