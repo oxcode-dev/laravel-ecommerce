@@ -40,4 +40,9 @@ class OrderController extends BaseController
             'Products fetched successfully!!!.',
         );
     }
+
+    public function store(Request $request)
+    {
+        return $request->all();
+    }
 }
