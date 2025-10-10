@@ -44,9 +44,13 @@ class OrderController extends BaseController
 
     public function store(Request $request)
     {
-        return $request->all();
+        // return $request->all();
         $validator = Validator::make($request->all(), [
-            'address_id' => ['string', 'uuid', 'required']
+            'address_id' => ['string', 'uuid', 'required', 'exists:addresses,id']
         ]);
+
+        if($validator->fails()){
+            return $this->sendError('Error Occurred.', $validator->errors());       
+        }
     }
 }
