@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\API\BaseController;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends BaseController
 {
@@ -44,5 +45,8 @@ class OrderController extends BaseController
     public function store(Request $request)
     {
         return $request->all();
+        $validator = Validator::make($request->all(), [
+            'address_id' => ['string', 'uuid', ]
+        ]);
     }
 }
