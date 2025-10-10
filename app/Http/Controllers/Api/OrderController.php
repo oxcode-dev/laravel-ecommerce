@@ -46,7 +46,7 @@ class OrderController extends BaseController
     {
         return $request->all();
         $validator = Validator::make($request->all(), [
-            'address_id' => ['string', 'uuid', ]
+            'address_id' => ['string', 'uuid', 'required']
         ]);
     }
 }
