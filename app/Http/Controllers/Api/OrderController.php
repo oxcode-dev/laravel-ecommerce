@@ -44,10 +44,12 @@ class OrderController extends BaseController
 
     public function store(Request $request)
     {
-// cart
-// [{product_id: "880945c8-eb32-34c0-8e82-f8ae790bc33a", quantity: 4},…]
+        $user = $request->user();
 
-        // return $request->all();
+        if (!$user) {
+            return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
+        }
+
         $validator = Validator::make($request->all(), [
             'address_id' => ['string', 'uuid', 'required', 'exists:addresses,id'],
             'name_on_card' => ['string', 'max:200', 'min:2', 'required'],
@@ -63,5 +65,17 @@ class OrderController extends BaseController
         if($validator->fails()){
             return $this->sendError('Error Occurred.', $validator->errors());       
         }
+
+        $order  = new Order();
+        $order['user_id'] = $user->id;
+        $order['address_id'] = $request->get('address_id');
+        $order['total_amount'] = $request->get('total_amount');
+        $order['delivery_cost'] = $request->get('delivery_cost');
+            // 'payment_status';
+            // 'payment_method' => 'card';
+        $order->save();
+
+        return $order;
+        
     }
 }
