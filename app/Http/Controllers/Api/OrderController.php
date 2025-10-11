@@ -80,6 +80,10 @@ class OrderController extends BaseController
         $cart = $request->get('cart');
         $productIds = collect($cart)->pluck('product_id');
         $products = Product::whereIn('id', $productIds)->get();
+
+        foreach ($cart as $key => $item) {
+            
+        }
  
         return ['prod' => collect($products)];
  
