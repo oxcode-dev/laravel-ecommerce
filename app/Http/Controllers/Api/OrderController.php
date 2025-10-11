@@ -52,13 +52,12 @@ class OrderController extends BaseController
             'address_id' => ['string', 'uuid', 'required', 'exists:addresses,id'],
             'name_on_card' => ['string', 'max:200', 'min:2', 'required'],
             'card_number' => ['string', 'max:15', 'min:10', 'required'],
-            'cvv' => ['integer', 'max:3', 'min:3', 'required'],
-            'expiry_month' => ['integer', 'max:2', 'min:1', 'required'],
-            'expiry_year' => ['integer', 'max:4', 'min:2', 'required'],
-            // 'shippingCost' => ['integer', 'required'],
-            // 'tax' => ['integer', 'required'],
-            // 'totalAmount' => ['integer', 'required'],
-            // 'totalPrice' => ['integer', 'required'],
+            'cvv' => ['integer', 'required'],
+            'expiry_month' => ['integer', 'required'],
+            'expiry_year' => ['integer', 'required'],
+            'cart' => ['array', 'required'],
+            'cart.*.product_id' => ['required', 'exists:products,id', 'uuid'],
+            'cart.*.quantity' => ['required', 'integer'],
         ]);
 
         if($validator->fails()){
