@@ -81,13 +81,31 @@ class OrderController extends BaseController
         $productIds = collect($cart)->pluck('product_id');
         $products = Product::whereIn('id', $productIds)->get();
 
-        foreach ($cart as $key => $item) {
+        $records = [];
+
+        // foreach ($cart as $key => $item) {
             
-        }
+        // }
  
-        return ['prod' => collect($products)];
+        // return ['prod' => collect($products)];
+
+        // 'order_id',
+        // 'product_id',
+        // 'quantity',
+        // 'unit_price',
  
 
+        collect($cart)->each(function ($item, $key) use (&$records, $products) {
+            $record = [
+                'product_id' => $item['product_id'],
+                'quantity' => $item['quantity'],
+                // 'unit_price' => collect($products)->where('id', $item['product_id'])->first->price,
+                'unit_price' => collect($products)->firstWhere('id', $item['product_id'])['price']
+            ];
+            $records[] = $record;
+        });
+
+        return ['prod' => collect($records)];
 
 
         
