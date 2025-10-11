@@ -81,7 +81,7 @@ class OrderController extends BaseController
         $productIds = collect($cart)->pluck('product_id');
         $products = Product::whereIn('id', $productIds)->get();
  
-        return ['prod' => $products];
+        return ['prod' => collect($products)];
  
 
 
