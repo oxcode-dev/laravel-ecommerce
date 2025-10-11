@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\API\BaseController;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -73,9 +74,18 @@ class OrderController extends BaseController
         $order['delivery_cost'] = $request->get('shippingCost');
             // 'payment_status';
             // 'payment_method' => 'card';
-        $order->save();
+        // $order->save();
 
-        return $order;
+        // return $order;
+        $cart = $request->get('cart');
+        $productIds = collect($cart)->pluck('product_id');
+        $products = Product::whereIn('id', $productIds)->get();
+ 
+        return ['prod' => $products];
+ 
+
+
+
         
     }
 }
