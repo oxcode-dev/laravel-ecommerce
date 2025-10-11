@@ -75,15 +75,16 @@ class OrderController extends BaseController
         $order['delivery_cost'] = $request->get('shippingCost');
             // 'payment_status';
             // 'payment_method' => 'card';
-        // $order->save();
+        $order->save();
 
         $cart = $request->get('cart');
         $productIds = collect($cart)->pluck('product_id');
         $products = Product::whereIn('id', $productIds)->get();
 
         $order_items = [];
-        collect($cart)->each(function ($item, $key) use (&$order_items, $products) {
+        collect($cart)->each(function ($item, $key) use (&$order_items, $products, $order) {
             $record = [
+                'order_id' => $order['id'],
                 'product_id' => $item['product_id'],
                 'quantity' => $item['quantity'],
                 'unit_price' => collect($products)->firstWhere('id', $item['product_id'])['price']
@@ -91,8 +92,8 @@ class OrderController extends BaseController
             $order_items[] = $record;
         });
 
-        OrderItem::insert($order_items);
+        $orderItems = OrderItem::insert($order_items);
 
-        // return ['prod' => collect($records)];
+        return ['prod' => collect($orderItems)];
     }
 }
