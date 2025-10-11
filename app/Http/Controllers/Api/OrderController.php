@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\API\BaseController;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -76,38 +77,22 @@ class OrderController extends BaseController
             // 'payment_method' => 'card';
         // $order->save();
 
-        // return $order;
         $cart = $request->get('cart');
         $productIds = collect($cart)->pluck('product_id');
         $products = Product::whereIn('id', $productIds)->get();
 
-        $records = [];
-
-        // foreach ($cart as $key => $item) {
-            
-        // }
- 
-        // return ['prod' => collect($products)];
-
-        // 'order_id',
-        // 'product_id',
-        // 'quantity',
-        // 'unit_price',
- 
-
-        collect($cart)->each(function ($item, $key) use (&$records, $products) {
+        $order_items = [];
+        collect($cart)->each(function ($item, $key) use (&$order_items, $products) {
             $record = [
                 'product_id' => $item['product_id'],
                 'quantity' => $item['quantity'],
-                // 'unit_price' => collect($products)->where('id', $item['product_id'])->first->price,
                 'unit_price' => collect($products)->firstWhere('id', $item['product_id'])['price']
             ];
-            $records[] = $record;
+            $order_items[] = $record;
         });
 
-        return ['prod' => collect($records)];
+        OrderItem::insert($order_items);
 
-
-        
+        // return ['prod' => collect($records)];
     }
 }
