@@ -69,8 +69,8 @@ class OrderController extends BaseController
         $order  = new Order();
         $order['user_id'] = $user->id;
         $order['address_id'] = $request->get('address_id');
-        $order['total_amount'] = $request->get('total_amount');
-        $order['delivery_cost'] = $request->get('delivery_cost');
+        $order['total_amount'] = $request->get('totalAmount');
+        $order['delivery_cost'] = $request->get('shippingCost');
             // 'payment_status';
             // 'payment_method' => 'card';
         $order->save();
