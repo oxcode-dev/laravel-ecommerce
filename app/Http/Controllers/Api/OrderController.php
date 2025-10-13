@@ -88,6 +88,8 @@ class OrderController extends BaseController
                 'product_id' => $item['product_id'],
                 'quantity' => $item['quantity'],
                 'unit_price' => collect($products)->firstWhere('id', $item['product_id'])['price']
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
             $order_items[] = $record;
         });
