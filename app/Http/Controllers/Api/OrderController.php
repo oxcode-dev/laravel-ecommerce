@@ -73,8 +73,8 @@ class OrderController extends BaseController
         $order['address_id'] = $request->get('address_id');
         $order['total_amount'] = $request->get('totalAmount');
         $order['delivery_cost'] = $request->get('shippingCost');
-            // 'payment_status';
-            // 'payment_method' => 'card';
+        $order['payment_status'] = 'paid';
+        $order['payment_method'] = 'card';
         $order->save();
 
         $cart = $request->get('cart');
@@ -96,6 +96,9 @@ class OrderController extends BaseController
 
         $orderItems = OrderItem::insert($order_items);
 
-        return ['prod' => collect($orderItems)];
+        return $this->sendResponse(
+            'Order completed',
+            'Order completed successfully!!!.',
+        );
     }
 }
