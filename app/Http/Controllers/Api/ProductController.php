@@ -5,17 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\API\BaseController;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ProductController extends BaseController
 {
     public function index (Request $request) 
     {
-        $products = Product::search($request->get('search', ''))
+        $cacheKey = 'products_api_' . $request->get('page', 1) . '_limit_' . $request->get('perPage', 20);
+        
+        $products = Cache::remember($cacheKey, now()->addMinutes(1), fn () => Product::search($request->get('search', ''))
             ->orderBy(
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 20));
+            ->paginate($request->get('perPage', 20)));
 
         return $this->sendResponse(
             $products,
