@@ -47,7 +47,7 @@ class CategoryController extends BaseController
 
     public function products (Request $request, $category_id) 
     {
-        $cacheKey = 'category_products_api_' . '_search_'  . $request->get('search', '') . '_page_' . $request->get('page', 1) . '_limit_' . $request->get('perPage', 20);
+        $cacheKey = 'category_products_api_' . $category_id . '_search_'  . $request->get('search', '') . '_page_' . $request->get('page', 1) . '_limit_' . $request->get('perPage', 20);
 
         $products = Cache::remember($cacheKey, now()->addMinutes(1), fn () => Product::search($request->get('search', ''))
             ->where('category_id', $category_id)
