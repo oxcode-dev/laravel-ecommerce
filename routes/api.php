@@ -28,7 +28,7 @@ Route::post('/reset-password/generate-otp', [PasswordResetController::class, 'ge
 Route::middleware(['throttle:api'])->prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('api.categories');
     Route::get('/{category}', [CategoryController::class, 'show'])->name('api.categories_show');
-    Route::get('/{slug}/products', [CategoryController::class, 'products'])->name('api.categories_products');
+    Route::get('/{category_id}/products', [CategoryController::class, 'products'])->name('api.categories_products');
 });
 
 Route::middleware(['throttle:api'])->prefix('products')->group(function () {
