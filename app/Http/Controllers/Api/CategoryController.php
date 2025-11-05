@@ -14,7 +14,7 @@ class CategoryController extends BaseController
     public function index (Request $request) 
     {
         // $cacheKey = 'categories_api_' . $request->get('page', 1) . '_limit_' . $request->get('perPage', 20);
-        $cacheKey = 'categories_api_with_products';
+        $cacheKey = 'categories_api_with_products_count';
 
         $categories = Cache::remember($cacheKey, now()->addMinutes(1), fn () => 
             Category::withCount('products')->take(20)->get()
@@ -47,14 +47,17 @@ class CategoryController extends BaseController
 
     public function products (Request $request, $slug) 
     {
+        $cacheKey = 'category_products_api_' . '_search_'  . $request->get('search', '') . '_page_' . $request->get('page', 1) . '_limit_' . $request->get('perPage', 20);
+
         $category = Category::where('slug', $slug)->firstOrFail();
-        $products = Product::search($request->get('search', ''))
+        $products = Cache::remember($cacheKey, now()->addMinutes(1), fn () => Product::search($request->get('search', ''))
             ->where('category_id', $category->id)
             ->orderBy(
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 20));
+            ->paginate($request->get('perPage', 20))
+        );
 
         return $this->sendResponse(
             $products,
