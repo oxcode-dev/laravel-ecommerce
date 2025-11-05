@@ -42,7 +42,9 @@ class ProductController extends BaseController
     {
         $ids = $request->get('id');
 
-        $products = Product::whereIn('id', $ids)->get();
+        $cacheKey = 'cart_products_api_';
+
+        $products = Cache::remember($cacheKey, now()->addMinutes(1), fn () => Product::whereIn('id', $ids)->get());
 
         return $this->sendResponse(
             $products,
