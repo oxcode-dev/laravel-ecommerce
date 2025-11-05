@@ -25,13 +25,13 @@ Route::post('/forgot-password', [PasswordResetController::class, 'forgot'])->nam
 Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('api.reset_password');
 Route::post('/reset-password/generate-otp', [PasswordResetController::class, 'generateOtp'])->name('api.generate_otp');
 
-Route::prefix('categories')->group(function () {
+Route::middleware(['throttle:api'])->prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('api.categories');
     Route::get('/{category}', [CategoryController::class, 'show'])->name('api.categories_show');
     Route::get('/{slug}/products', [CategoryController::class, 'products'])->name('api.categories_products');
 });
 
-Route::prefix('products')->group(function () {
+Route::middleware(['throttle:api'])->prefix('products')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('api.products');
     Route::get('/cart', [ProductController::class, 'cartProducts'])->name('api.products_cart');
     Route::get('/{product}', [ProductController::class, 'show'])->name('api.products_show');
