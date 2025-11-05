@@ -37,7 +37,7 @@ Route::middleware(['throttle:api'])->prefix('products')->group(function () {
     Route::get('/{product}', [ProductController::class, 'show'])->name('api.products_show');
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::post('/profile-update', [ProfileController::class, 'update'])->name('api.update_profile');
     Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('api.change_password');
     Route::post('/delete-account', [ProfileController::class, 'deleteAccount'])->name('api.delete_account');
