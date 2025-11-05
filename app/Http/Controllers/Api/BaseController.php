@@ -54,7 +54,7 @@ class BaseController extends Controller
             $response['data'] = $errorMessages;
         }
 
-        Log::info($error, $response);
+        Log::error($error, $response);
 
         return response()->json($response, $code);
     }
