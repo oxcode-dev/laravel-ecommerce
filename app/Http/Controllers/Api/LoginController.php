@@ -24,7 +24,7 @@ class LoginController extends BaseController
         ]);
    
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return $this->sendError('Validation Error.', $validator->errors(), 422);       
         }
 
         if(!User::where('email', $request->email)->where('role', 'CUSTOMER')->exists()){ 

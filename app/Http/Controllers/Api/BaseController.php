@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class BaseController extends Controller
 {
@@ -31,6 +32,8 @@ class BaseController extends Controller
             'message' => $message,
         ];
 
+        Log::info($message, $response);
+
         return response()->json($response, 200);
     }
 
@@ -50,6 +53,8 @@ class BaseController extends Controller
         if(!empty($errorMessages)){
             $response['data'] = $errorMessages;
         }
+
+        Log::info($error, $response);
 
         return response()->json($response, $code);
     }
