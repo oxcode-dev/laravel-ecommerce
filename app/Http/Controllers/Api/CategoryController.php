@@ -12,15 +12,22 @@ class CategoryController extends BaseController
 {
     public function index (Request $request) 
     {
-        $categories = Category::search($request->get('search', ''))
-            ->orderBy(
-                $request->get('sortField', 'created_at'),
-                $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
-            )    
-            ->paginate($request->get('perPage', 10));
+        // $cacheKey = 'categories_api_' . $request->get('page', 1) . '_limit_' . $request->get('perPage', 20);
+        $cacheKey = 'categories_api_with_products';
+
+        $categories = Cache::remember($cacheKey, now()->addMinutes(1), fn () => 
+            Category::withCount('products')->take(20)->get()
+        );
+        
+        // Category::search($request->get('search', ''))
+        //     ->orderBy(
+        //         $request->get('sortField', 'created_at'),
+        //         $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
+        //     )    
+        //     ->paginate($request->get('perPage', 10));
 
         return $this->sendResponse(
-            Category::withCount('products')->take(20)->get(),
+            $categories,
             'Category fetched successfully!!!.',
         );
     }
