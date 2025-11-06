@@ -19,12 +19,13 @@ class AddressController extends BaseController
 
         $cacheKey = 'user_addresses_' . $request->get('sortField', 'created_at') . '_sort_by_' .  $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
 
-        $addresses = Address::search($request->get('search', ''))
+        $addresses =  Cache::remember($cacheKey, now()->addMinutes(1), fn () => Address::search($request->get('search', ''))
             ->where('user_id', $user->id)
             ->orderBy(
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
-            )->get();
+            )->get()
+        );
             // ->paginate($request->get('perPage', 20));
 
         return $this->sendResponse(
@@ -45,6 +46,8 @@ class AddressController extends BaseController
             ->where('user_id', $user->id)
             ->whereId($address->id)
             ->first();
+
+        Cache::flush();
 
         return $this->sendResponse(
             $address,
