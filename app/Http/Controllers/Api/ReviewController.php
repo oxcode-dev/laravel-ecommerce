@@ -13,13 +13,16 @@ class ReviewController extends BaseController
     {
         $user = $request->user();
 
-        $reviews = Review::search($request->get('search', ''))
+        $cacheKey = 'reviews_' . $request->get('search', '') . '_page_' . $request->get('perPage', 10);
+
+        $reviews = Cache::remember($cacheKey, now()->addMinutes(1), fn () => Review::search($request->get('search', ''))
             ->where('user_id', $user->id)
             ->orderBy(
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 10));
+            ->paginate($request->get('perPage', 10))
+        );
 
         return $this->sendResponse(
             $reviews,
@@ -70,6 +73,8 @@ class ReviewController extends BaseController
         $review->user_id = $user->id;
 
         $review->save();
+
+        Cache::flush();
         
         return $this->sendResponse(
             'Product Review saved successfully.',
