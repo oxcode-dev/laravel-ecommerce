@@ -17,6 +17,8 @@ class AddressController extends BaseController
             return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
         }
 
+        $cacheKey = 'user_addresses_' . $request->get('sortField', 'created_at') . '_sort_by_' .  $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
+
         $addresses = Address::search($request->get('search', ''))
             ->where('user_id', $user->id)
             ->orderBy(
