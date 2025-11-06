@@ -15,13 +15,16 @@ class OrderController extends BaseController
     {
         $user = $request->user();
 
-        $orders = Order::search($request->get('search', ''))
+        $cacheKey = 'user_orders_' . '_search_' . $request->get('search', '') . '_page_' . $request->get('perPage', 1);
+
+        $orders = Cache::remember($cacheKey, now()->addMinutes(1), fn () =>  Order::search($request->get('search', ''))
             ->where('user_id', $user->id)
             ->orderBy(
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 1));
+            ->paginate($request->get('perPage', 1))
+        );
 
         return $this->sendResponse(
             $orders,
@@ -95,6 +98,8 @@ class OrderController extends BaseController
         });
 
         $orderItems = OrderItem::insert($order_items);
+
+        Cache::flush();
 
         return $this->sendResponse(
             'Order completed',
