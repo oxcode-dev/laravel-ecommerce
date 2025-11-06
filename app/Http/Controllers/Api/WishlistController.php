@@ -7,6 +7,7 @@ use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Http\Resources\WishlistResource;
 use App\Http\Resources\WishlistCollection;
+use Illuminate\Support\Facades\Cache;
 
 class WishlistController extends BaseController
 {
@@ -18,13 +19,16 @@ class WishlistController extends BaseController
             return $this->sendError('Validation Error.', ['status' => 'failed', 'message' => 'user not found'], 419);       
         }
 
-        $wishlists = Wishlist::search($request->get('search', ''))
+        $cacheKey = 'user_wishlists_search_' . $request->get('search', '') . '_page_' . $request->get('perPage', 15);
+
+        $wishlists = Cache::remember($cacheKey, now()->addMinutes(1), fn () => Wishlist::search($request->get('search', ''))
             ->where('user_id', $user->id)
             ->orderBy(
                 $request->get('sortField', 'created_at'),
                 $request->get('sortAsc') === 'true' ? 'asc' : 'desc'
             )    
-            ->paginate($request->get('perPage', 15));
+            ->paginate($request->get('perPage', 15))
+        );
 
         return $this->sendResponse(
             // WishlistResource::collection($wishlists),
@@ -76,6 +80,8 @@ class WishlistController extends BaseController
 
         Wishlist::where('user_id', $user->id)->where('product_id', $product_id)->delete();
 
+        Cache::flush();
+
         return $this->sendResponse(
             'Wishlist Removed.',
             'Wishlist Removed successfully!!!.',
@@ -91,6 +97,8 @@ class WishlistController extends BaseController
         }
 
         Wishlist::where('user_id', $user->id)->whereId($wishlist->id)->delete();
+
+        Cache::flush();
 
         return $this->sendResponse(
             'Wishlist Removed.',
