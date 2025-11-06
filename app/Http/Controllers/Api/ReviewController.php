@@ -6,6 +6,7 @@ use App\Http\Controllers\API\BaseController;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
 
 class ReviewController extends BaseController
 {
