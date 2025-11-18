@@ -61,9 +61,4 @@ class BaseController extends Controller
 }
 
 
-What’s up guys! Samuel here — 
-Welcome to my channel
-This is my first video...
-I am full-stack developer, trying to make coding simple. 
-Hit Subscribe and let’s code!
 
