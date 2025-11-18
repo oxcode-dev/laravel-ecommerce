@@ -59,3 +59,11 @@ class BaseController extends Controller
         return response()->json($response, $code);
     }
 }
+
+
+What’s up guys! Samuel here — 
+Welcome to my channel
+This is my first video...
+I am full-stack developer, trying to make coding simple. 
+Hit Subscribe and let’s code!
+
