@@ -64,4 +64,3 @@ class CategoryController extends BaseController
         );
     }
 }
-
